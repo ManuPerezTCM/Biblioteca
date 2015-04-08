@@ -29,7 +29,7 @@ public class controladorFerPrestec {
 	}
 	
 	//String soci �s el seu DNI i String exemplar �s el REGISTRE
-	public void enregistrarPrestec(String soci, String exemplar){
+	public void enregistrarPrestec(String soci, String exemplar) throws Exception{
 		if (soci.equals("") || exemplar.equals("")){
 			throw new Exception("Introdueixi un soci i un exemplar per realitzar el pr�stec");
 		}
@@ -41,7 +41,7 @@ public class controladorFerPrestec {
 		if(sociObj.fiable() && exemplarObj.disponible()){			
 			
 			data_max_retorn = new Date();
-			Calendar calendar;
+			Calendar calendar = null;
 			//S'HA DE CAMBIAR PER FER QUE AGAFI EL VALOR DE DIES DE LA BBDD
 			calendar.add(data_max_retorn.getDay(), 5);//afegim el temps especificat. 
 			

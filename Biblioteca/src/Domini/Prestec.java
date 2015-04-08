@@ -1,7 +1,9 @@
 package Domini;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,7 +15,8 @@ import java.util.Date;
 @Entity
 public class Prestec implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	private Date data_prestec;
+	
 	@EmbeddedId
 	private PrestecPK id;
 
@@ -99,6 +102,14 @@ public class Prestec implements Serializable {
 
 	public void setSoci(Soci soci) {
 		this.soci = soci;
+	}
+	
+	public Date getDataPrestec(){
+		return this.data_prestec;
+	}
+	
+	public void setDataPrestec(Date dataPrestec){
+		this.data_prestec = dataPrestec;
 	}
 
 }

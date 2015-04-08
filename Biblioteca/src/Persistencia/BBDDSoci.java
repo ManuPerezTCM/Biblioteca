@@ -33,8 +33,7 @@ public class BBDDSoci {
 		q.setParameter("soci", soci);
 		if(q.getResultList().get(0).equals("Moros")){
 			return false;
-		}
-		
+		}		
 		return true;
 	}
 

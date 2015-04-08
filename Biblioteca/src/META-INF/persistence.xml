@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="Biblioteca">
+	<persistence-unit name="Biblioteca" transaction-type="RESOURCE_LOCAL">
+	
+	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+	
 		<class>Domini.Exemplar</class>
 		<class>Domini.ExemplarPK</class>
 		<class>Domini.Autor</class>
@@ -13,5 +16,12 @@
 		<class>Domini.Soci</class>
 		<class>Domini.Bibliotecari</class>
 		<class>Domini.BibliotecariPK</class>
+		
+		
+		<properties>			
+			 	 <property name="javax.persistence.jdbc.url"  value="jdbc:oracle:thin:@rama.eupmt.es:1521:logo10"/>
+				<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/> 	
+			</properties>
+			
 	</persistence-unit>
 </persistence>

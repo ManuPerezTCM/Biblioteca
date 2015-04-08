@@ -68,10 +68,7 @@ public class Exemplar implements Serializable {
 	}
 	//disponible retorna un BOOLEAN indicant si el exemplar est� disponible.
 	public boolean disponible() {
-		if(getDataBaixa!=null){
-			return true;
-		}
-		
+		return getDataBaixa()!=null;
 	}
 
 	

@@ -22,7 +22,7 @@ public class BBDDExemplar {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
 		Query q = em.createNativeQuery("select * from prestec where exemplar=:exemplar and DATA_REAL_RETORN IS NULL");
 		q.setParameter("exemplar", exemplar);
-		return q.executeUpdate()>0;
+		return q.getResultList().size()>0;
 	}
 
 }

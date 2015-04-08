@@ -92,10 +92,6 @@ public class Soci implements Serializable {
 		this.nom = nom;
 	}
 
-	public boolean fiable() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 
 }

@@ -17,7 +17,7 @@ public class ConnexioJPA {
 			Map<String,String> properties = new HashMap<String,String>();
 			properties.put("javax.persistence.jdbc.user", login);
 			properties.put("javax.persistence.jdbc.password", password);
-			emf = Persistence.createEntityManagerFactory("Joc Daus JDBC Oracle", properties);
+			emf = Persistence.createEntityManagerFactory("Biblioteca", properties);
 			EntityManager em = emf.createEntityManager();
 			em.close();
 		} catch (Exception e) {

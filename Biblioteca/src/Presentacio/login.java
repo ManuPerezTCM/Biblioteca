@@ -1,6 +1,5 @@
 package Presentacio;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,6 +17,7 @@ import CapaAplicacio.controladorLogin;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JFormattedTextField;
 
 public class login extends JFrame {
 
@@ -70,96 +70,53 @@ public class login extends JFrame {
 
 		textFieldNom = new JTextField();
 		textFieldNom.setColumns(10);
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane
-				.setHorizontalGroup(gl_contentPane
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_contentPane
-										.createSequentialGroup()
-										.addGroup(
-												gl_contentPane
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																gl_contentPane
-																		.createSequentialGroup()
-																		.addGap(162)
-																		.addComponent(
-																				lblIniciar))
-														.addGroup(
-																gl_contentPane
-																		.createSequentialGroup()
-																		.addGap(48)
-																		.addGroup(
-																				gl_contentPane
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addComponent(
-																								lblContrasenya)
-																						.addComponent(
-																								lblNom))
-																		.addGap(18)
-																		.addGroup(
-																				gl_contentPane
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addComponent(
-																								textFieldNom,
-																								GroupLayout.PREFERRED_SIZE,
-																								GroupLayout.DEFAULT_SIZE,
-																								GroupLayout.PREFERRED_SIZE)
-																						.addComponent(
-																								textFieldContrasenya,
-																								GroupLayout.PREFERRED_SIZE,
-																								GroupLayout.DEFAULT_SIZE,
-																								GroupLayout.PREFERRED_SIZE))))
-										.addContainerGap(154, Short.MAX_VALUE))
-						.addGroup(
-								Alignment.TRAILING,
-								gl_contentPane.createSequentialGroup()
-										.addContainerGap(273, Short.MAX_VALUE)
-										.addComponent(btnAcceptar).addGap(50)));
-		gl_contentPane
-				.setVerticalGroup(gl_contentPane
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_contentPane
-										.createSequentialGroup()
-										.addGap(16)
-										.addComponent(lblIniciar)
-										.addGap(69)
-										.addGroup(
-												gl_contentPane
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addGroup(
-																gl_contentPane
-																		.createSequentialGroup()
-																		.addComponent(
-																				lblNom)
-																		.addGap(31)
-																		.addComponent(
-																				lblContrasenya))
-														.addGroup(
-																gl_contentPane
-																		.createSequentialGroup()
-																		.addComponent(
-																				textFieldNom,
-																				GroupLayout.PREFERRED_SIZE,
-																				GroupLayout.DEFAULT_SIZE,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(
-																				ComponentPlacement.UNRELATED)
-																		.addComponent(
-																				textFieldContrasenya,
-																				GroupLayout.PREFERRED_SIZE,
-																				GroupLayout.DEFAULT_SIZE,
-																				GroupLayout.PREFERRED_SIZE)))
-										.addPreferredGap(
-												ComponentPlacement.RELATED, 45,
-												Short.MAX_VALUE)
-										.addComponent(btnAcceptar).addGap(25)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(162)
+							.addComponent(lblIniciar))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(48)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblContrasenya)
+								.addComponent(lblNom))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(textFieldNom)
+								.addComponent(textFieldContrasenya)
+								.addComponent(formattedTextField))))
+					.addContainerGap(154, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(291, Short.MAX_VALUE)
+					.addComponent(btnAcceptar)
+					.addGap(50))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(16)
+					.addComponent(lblIniciar)
+					.addGap(69)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblNom)
+							.addGap(31)
+							.addComponent(lblContrasenya))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(textFieldNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(textFieldContrasenya, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(btnAcceptar)
+					.addGap(25))
+		);
 		contentPane.setLayout(gl_contentPane);
 
 		btnAcceptar.addActionListener(new ActionListener() {

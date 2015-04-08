@@ -19,10 +19,10 @@ public class controladorLogin {
 	}
 	
 	public void comprovar(String nom, String contrasenya) throws Exception{
-		bbddBibliotecari.find(nom, contrasenya);
+		bbddBibliotecari.find(nom.toUpperCase(), contrasenya);
 	}
 	
 	public void logarse(String usuari, String password) throws Exception {
-		ConnexioJPA.getInstancia(usuari, password);
+		ConnexioJPA.getInstancia(usuari.toUpperCase(), password);
 	}
 }

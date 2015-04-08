@@ -143,7 +143,7 @@ public class login extends JFrame {
 	
 	private void ferPrestec(){
 		try{
-			new ferPrestec().setVisible(true);			
+			new ferPrestec();		
 			this.dispose();
 		}
 		catch(Exception e){

@@ -12,6 +12,7 @@ public class BBDDSoci {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
 		System.out.println("b");
 		Soci retorn = em.find(Soci.class, soci);
+		System.out.println("c");
 		em.close();
 		return retorn;
 	}

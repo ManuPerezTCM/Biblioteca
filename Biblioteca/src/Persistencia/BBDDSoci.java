@@ -8,7 +8,9 @@ import Domini.Soci;
 public class BBDDSoci {
 
 	public Soci find(String soci) throws Exception {
+		System.out.println("a");
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
+		System.out.println("b");
 		Soci retorn = em.find(Soci.class, soci);
 		em.close();
 		return retorn;

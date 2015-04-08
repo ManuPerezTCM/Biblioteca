@@ -16,7 +16,7 @@ import CapaAplicacio.controladorFerPrestec;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ferPrestec {
+public class ferPrestec extends JFrame{
 
 	private JFrame frame;
 	private JTextField fieldExemplarDemanat;

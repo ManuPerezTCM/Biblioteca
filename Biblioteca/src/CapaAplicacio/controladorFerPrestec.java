@@ -36,8 +36,11 @@ public class controladorFerPrestec {
 		bbddPrestec=new BBDDPrestec();
 		bbddSoci=new BBDDSoci();
 		bbddExemplar=new BBDDExemplar();
+		System.out.println("4");
 		sociObj = bbddSoci.find(soci);
+		System.out.println("5");
 		exemplarObj = bbddExemplar.find(exemplar);
+		System.out.println("6");
 				//fiable retorna un BOOLEAN indicant si al soci se li pot fer un pr�stec.
 				//disponible retorna un BOOLEAN indicant si el exemplar est� disponible
 

@@ -17,7 +17,9 @@ import CapaAplicacio.controladorLogin;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JFormattedTextField;
+
 
 public class login extends JFrame {
 
@@ -119,11 +121,7 @@ public class login extends JFrame {
 				try {
 					controladorLogin.comprovar(textFieldNom.getText(),
 							textFieldContrasenya.getText());
-					JOptionPane
-							.showMessageDialog(
-									new JFrame(),
-									"Es troba a la BBDD aquest bibliotecari, aquesta pantalla es per assegurar-ho, ja canviarem l'action performed per que tiri una pantalla inicial",
-									"Radical", JOptionPane.PLAIN_MESSAGE);
+					ferPrestec();
 				} catch (Exception e1) {
 					tirarError(e1.getMessage());
 				}
@@ -138,5 +136,19 @@ public class login extends JFrame {
 	public void tirarError(String missatge) {
 		JOptionPane.showMessageDialog(new JFrame(), missatge, "Error",
 				JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private void ferPrestec(){
+		try{
+			ferPrestec fp = new ferPrestec();
+			this.setVisible(false);
+			fp.setVisible(true);
+			
+		}
+		catch(Exception e){
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		
 	}
 }

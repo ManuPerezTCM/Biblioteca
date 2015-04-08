@@ -39,8 +39,9 @@ public class controladorFerPrestec {
 		sociObj = bbddSoci.find(soci);
 		exemplarObj = bbddExemplar.find(exemplar);
 				//fiable retorna un BOOLEAN indicant si al soci se li pot fer un pr�stec.
-				//disponible retorna un BOOLEAN indicant si el exemplar est� disponible.
-		if(bbddSoci.potDemanarPrestec(soci, exemplar) && exemplarObj.disponible()&&!bbddExemplar.estaEnPrestec(exemplar)){			
+				//disponible retorna un BOOLEAN indicant si el exemplar est� disponible
+
+		if(bbddSoci.potDemanarPrestec(soci, exemplar) && exemplarObj.disponible()&& !bbddExemplar.estaEnPrestec(exemplar)){
 			
 			data_max_retorn = new Date();
 			Calendar calendar = null;

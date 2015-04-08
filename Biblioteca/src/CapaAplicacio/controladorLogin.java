@@ -10,7 +10,7 @@ public class controladorLogin {
 	
 	public controladorLogin() throws Exception{
 		bbddBibliotecari = new BBDDBibliotecari();
-		ConnexioJPA.getInstancia("G5GEILAB2","G5P15");
+		ConnexioJPA.getInstancia("G5GEILAB2","G5P15"); //Crear una connexio amb el nostre usuari i contrasenya
 		this.connexio = connexio.getInstancia();
 	}
 	
@@ -18,4 +18,7 @@ public class controladorLogin {
 		bbddBibliotecari.find(nom, contrasenya);
 	}
 	
+	public void logarse(String usuari, String password) throws Exception {
+		ConnexioJPA.getInstancia(usuari, password);
+	}
 }

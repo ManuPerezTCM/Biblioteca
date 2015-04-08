@@ -8,7 +8,7 @@ import Domini.Exemplar;
 import Domini.Prestec;
 import Domini.Soci;
 import Persistencia.BBDDExemplar;
-import Persistencia.BBDDPrèstec;
+import Persistencia.BBDDPrestec;
 import Persistencia.BBDDSoci;
 
 public class controladorFerPrestec {
@@ -18,7 +18,7 @@ public class controladorFerPrestec {
 	private Date data_max_retorn;
 	private Exemplar exemplarObj;
 	
-	private BBDDPrèstec bbddPrestec;
+	private BBDDPrestec bbddPrestec;
 	private BBDDSoci bbddSoci;
 	private BBDDExemplar bbddExemplar;
 
@@ -28,16 +28,16 @@ public class controladorFerPrestec {
 		
 	}
 	
-	//String soci és el seu DNI i String exemplar és el REGISTRE
+	//String soci ï¿½s el seu DNI i String exemplar ï¿½s el REGISTRE
 	public void enregistrarPrestec(String soci, String exemplar){
 		if (soci.equals("") || exemplar.equals("")){
-			throw new Exception("Introdueixi un soci i un exemplar per realitzar el prèstec");
+			throw new Exception("Introdueixi un soci i un exemplar per realitzar el prï¿½stec");
 		}
 		
 		sociObj = bbddSoci.find(soci);
 		exemplarObj = bbddExemplar.find(exemplar);
-				//fiable retorna un BOOLEAN indicant si al soci se li pot fer un prèstec.
-				//disponible retorna un BOOLEAN indicant si el exemplar està disponible.
+				//fiable retorna un BOOLEAN indicant si al soci se li pot fer un prï¿½stec.
+				//disponible retorna un BOOLEAN indicant si el exemplar estï¿½ disponible.
 		if(sociObj.fiable() && exemplarObj.disponible()){			
 			
 			data_max_retorn = new Date();

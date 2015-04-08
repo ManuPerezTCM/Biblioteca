@@ -5,7 +5,7 @@ import javax.persistence.EntityTransaction;
 
 import Domini.Prestec;
 
-public class BBDDPrèstec {
+public class BBDDPrestec {
 
 	public void afegirPrestec(Prestec prestec) throws Exception {
 		EntityManager em = null;
@@ -16,7 +16,7 @@ public class BBDDPrèstec {
 			em.persist(prestec);
 			tx.commit();
 		}catch (Exception e){
-			throw new Exception("Error al inserir el prèstec: "+e.getMessage());
+			throw new Exception("Error al inserir el prï¿½stec: "+e.getMessage());
 		}finally{
 			if(em != null)
 				em.close();

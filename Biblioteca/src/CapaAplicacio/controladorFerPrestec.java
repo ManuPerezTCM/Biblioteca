@@ -36,7 +36,8 @@ public class controladorFerPrestec {
 		
 		sociObj = bbddSoci.find(soci);
 		exemplarObj = bbddExemplar.find(exemplar);
-				
+				//fiable retorna un BOOLEAN indicant si al soci se li pot fer un prèstec.
+				//disponible retorna un BOOLEAN indicant si el exemplar està disponible.
 		if(sociObj.fiable() && exemplarObj.disponible()){			
 			
 			data_max_retorn = new Date();

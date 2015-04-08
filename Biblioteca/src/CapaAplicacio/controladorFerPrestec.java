@@ -7,6 +7,9 @@ import java.util.GregorianCalendar;
 import Domini.Exemplar;
 import Domini.Prestec;
 import Domini.Soci;
+import Persistencia.BBDDExemplar;
+import Persistencia.BBDDPrèstec;
+import Persistencia.BBDDSoci;
 
 public class controladorFerPrestec {
 	
@@ -25,7 +28,8 @@ public class controladorFerPrestec {
 		
 	}
 	
-	public boolean enregistrarPrestec(String soci, String exemplar){
+	//String soci és el seu DNI i String exemplar és el REGISTRE
+	public void enregistrarPrestec(String soci, String exemplar){
 		if (soci.equals("") || exemplar.equals("")){
 			throw new Exception("Introdueixi un soci i un exemplar per realitzar el prèstec");
 		}
@@ -45,8 +49,7 @@ public class controladorFerPrestec {
 			prestec.setDataMaxRetorn(data_max_retorn);
 			this.prestec.setDataPrestec(data_prestec);
 			
-			return this.bbddPrestec.addPrestec(this.prestec);
-			
+			this.bbddPrestec.afegirPrestec(this.prestec);			
 		}
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 
@@ -60,7 +61,7 @@ public class ferPrestec {
 		frame.getContentPane().add(lblFerPrstec);
 		
 		JLabel lblExemplarDemanat = new JLabel("Exemplar demanat: ");
-		lblExemplarDemanat.setBounds(71, 100, 105, 14);
+		lblExemplarDemanat.setBounds(71, 100, 128, 14);
 		frame.getContentPane().add(lblExemplarDemanat);
 		
 		fieldExemplarDemanat = new JTextField();
@@ -69,7 +70,7 @@ public class ferPrestec {
 		fieldExemplarDemanat.setColumns(10);
 		
 		JLabel lblSoci = new JLabel("Soci: ");
-		lblSoci.setBounds(71, 135, 46, 14);
+		lblSoci.setBounds(71, 135, 114, 14);
 		frame.getContentPane().add(lblSoci);
 		
 		fieldSoci = new JTextField();
@@ -82,7 +83,13 @@ public class ferPrestec {
 		JButton btnFerPrstec = new JButton("FER PR\u00C8STEC");
 		btnFerPrstec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cont.enregistrarPrestec(fieldSoci.getText(), fieldExemplarDemanat.getText());
+				try{
+					cont.enregistrarPrestec(fieldSoci.getText(), fieldExemplarDemanat.getText());
+				}
+				catch(Exception ex){
+					JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Dialog",
+					        JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnFerPrstec.setBounds(54, 194, 114, 23);

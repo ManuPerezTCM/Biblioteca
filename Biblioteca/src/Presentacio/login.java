@@ -57,7 +57,7 @@ public class login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JLabel lblIniciar = new JLabel("Iniciar Sessiï¿½");
+		JLabel lblIniciar = new JLabel("Iniciar Sessió");
 
 		JLabel lblNom = new JLabel("Nom: ");
 

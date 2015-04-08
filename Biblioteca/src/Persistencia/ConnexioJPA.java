@@ -14,14 +14,18 @@ public class ConnexioJPA {
 	
 	private ConnexioJPA(String login, String password)throws Exception{
 		try {
-			Map<String,String> properties = new HashMap<String,String>();
+			Map<String,String> properties ;
+			properties = new HashMap<String,String>();
 			properties.put("javax.persistence.jdbc.user", login);
-			properties.put("javax.persistence.jdbc.password", password);
+			properties.put("javax.persistence.jdbc.password", password);	
+			System.out.println("1");
 			emf = Persistence.createEntityManagerFactory("Biblioteca", properties);
+			System.out.println("2");
 			EntityManager em = emf.createEntityManager();
+			System.out.println("3");
 			em.close();
 		} catch (Exception e) {
-			throw new Exception("Error Connexio JPA: "+e.getMessage());
+			throw new Exception("Error Connexio JPA 2: "+e.getMessage());
 		}
 	}
 	

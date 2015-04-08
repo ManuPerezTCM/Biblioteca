@@ -15,10 +15,14 @@ import java.util.Date;
 @Entity
 public class Prestec implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Date data_prestec;
+	
 	
 	@EmbeddedId
 	private PrestecPK id;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="DATA_Prestec")
+	private Date data_prestec;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATA_MAX_RETORN")

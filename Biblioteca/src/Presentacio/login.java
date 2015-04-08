@@ -67,9 +67,12 @@ public class login extends JFrame {
 
 		textFieldContrasenya = new JTextField();
 		textFieldContrasenya.setColumns(10);
+		textFieldContrasenya.setText("");
 
 		textFieldNom = new JTextField();
 		textFieldNom.setColumns(10);
+		textFieldNom.setText("");
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)

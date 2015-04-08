@@ -57,7 +57,7 @@ public class login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JLabel lblIniciar = new JLabel("Iniciar Sessi�");
+		JLabel lblIniciar = new JLabel("Iniciar Sessi\u00F3");
 
 		JLabel lblNom = new JLabel("Nom: ");
 
@@ -70,8 +70,6 @@ public class login extends JFrame {
 
 		textFieldNom = new JTextField();
 		textFieldNom.setColumns(10);
-		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -88,11 +86,10 @@ public class login extends JFrame {
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(textFieldNom)
-								.addComponent(textFieldContrasenya)
-								.addComponent(formattedTextField))))
-					.addContainerGap(154, Short.MAX_VALUE))
+								.addComponent(textFieldContrasenya))))
+					.addContainerGap(188, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(291, Short.MAX_VALUE)
+					.addContainerGap(299, Short.MAX_VALUE)
 					.addComponent(btnAcceptar)
 					.addGap(50))
 		);
@@ -111,9 +108,7 @@ public class login extends JFrame {
 							.addComponent(textFieldNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(textFieldContrasenya, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
 					.addComponent(btnAcceptar)
 					.addGap(25))
 		);

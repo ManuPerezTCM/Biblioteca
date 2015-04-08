@@ -33,8 +33,9 @@ public class controladorFerPrestec {
 		if (soci.equals("") || exemplar.equals("")){
 			throw new Exception("Introdueixi un soci i un exemplar per realitzar el pr�stec");
 		}
-		
+		System.out.println("AQUI1");
 		sociObj = bbddSoci.find(soci);
+		System.out.println("AQUI2");
 		exemplarObj = bbddExemplar.find(exemplar);
 				//fiable retorna un BOOLEAN indicant si al soci se li pot fer un pr�stec.
 				//disponible retorna un BOOLEAN indicant si el exemplar est� disponible.

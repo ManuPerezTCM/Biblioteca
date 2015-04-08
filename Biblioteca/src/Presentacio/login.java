@@ -143,10 +143,8 @@ public class login extends JFrame {
 	
 	private void ferPrestec(){
 		try{
-			ferPrestec fp = new ferPrestec();
-			this.setVisible(false);
-			fp.setVisible(true);
-			
+			new ferPrestec().setVisible(true);			
+			this.dispose();
 		}
 		catch(Exception e){
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

@@ -57,7 +57,7 @@ public class login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JLabel lblIniciar = new JLabel("Iniciar Sessió");
+		JLabel lblIniciar = new JLabel("Iniciar Sessiï¿½");
 
 		JLabel lblNom = new JLabel("Nom: ");
 
@@ -171,7 +171,7 @@ public class login extends JFrame {
 							.showMessageDialog(
 									new JFrame(),
 									"Es troba a la BBDD aquest bibliotecari, aquesta pantalla es per assegurar-ho, ja canviarem l'action performed per que tiri una pantalla inicial",
-									"Radical", JOptionPane.OK_OPTION);
+									"Radical", JOptionPane.PLAIN_MESSAGE);
 				} catch (Exception e1) {
 					tirarError(e1.getMessage());
 				}

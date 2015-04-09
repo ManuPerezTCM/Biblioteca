@@ -53,8 +53,6 @@ public class controladorFerPrestec {
 			prestec.setSoci(sociObj);
 			prestec.setDataMaxRetorn(data_max_retorn);
 			this.bbddPrestec.afegirPrestec(this.prestec);	
-			System.out.println("Entro dins del if9");
 		}
-		System.out.println("NO entro dins del if");
 	}
 }

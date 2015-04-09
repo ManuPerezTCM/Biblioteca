@@ -20,9 +20,9 @@ public class Prestec implements Serializable {
 	@EmbeddedId
 	private PrestecPK id;
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name="DATA_Prestec")
-	private Date data_prestec;
+//	@Temporal(TemporalType.DATE)
+//	@Column(name="DATA_Prestec")
+//	private Date data_prestec;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATA_MAX_RETORN")
@@ -107,13 +107,13 @@ public class Prestec implements Serializable {
 	public void setSoci(Soci soci) {
 		this.soci = soci;
 	}
-	
-	public Date getDataPrestec(){
-		return this.data_prestec;
-	}
-	
-	public void setDataPrestec(Date dataPrestec){
-		this.data_prestec = dataPrestec;
-	}
+//	
+//	public Date getDataPrestec(){
+//		return this.data_prestec;
+//	}
+//	
+//	public void setDataPrestec(Date dataPrestec){
+//		this.data_prestec = dataPrestec;
+//	}
 
 }

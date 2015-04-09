@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 
 import Domini.Exemplar;
 import Domini.Prestec;
+import Domini.PrestecPK;
 import Domini.Soci;
 import Persistencia.BBDDExemplar;
 import Persistencia.BBDDPrestec;
@@ -45,11 +46,20 @@ public class controladorFerPrestec {
 		//LA SEGUNDA CONDICION FUNCIONA BIEN
 		//LA TERCERA CONDICION FUNCIONA BIEN
 		if(bbddSoci.potDemanarPrestec(soci, exemplar) && exemplarObj.disponible()&& !bbddExemplar.estaEnPrestec(exemplar)){
+			
+			data_prestec = new Date();
 			data_max_retorn = new Date();
 			Calendar calendar = GregorianCalendar.getInstance();
 			//S'HA DE CAMBIAR PER FER QUE AGAFI EL VALOR DE DIES DE LA BBDD
 			calendar.add(data_max_retorn.getDay(), 5);//afegim el temps especificat. 
+			
+			PrestecPK prestecPK = new PrestecPK();
+			prestecPK.setDataPrestec(data_prestec);
+			prestecPK.setSoci(soci);
+			
 			prestec = new Prestec();
+			prestec.setId(prestecPK);
+			prestec.setExemplar(exemplarObj);
 			prestec.setSoci(sociObj);
 			prestec.setDataMaxRetorn(data_max_retorn);
 			this.bbddPrestec.afegirPrestec(this.prestec);	

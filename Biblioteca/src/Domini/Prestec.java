@@ -107,7 +107,7 @@ public class Prestec implements Serializable {
 	public void setSoci(Soci soci) {
 		this.soci = soci;
 	}
-//	
+	
 //	public Date getDataPrestec(){
 //		return this.data_prestec;
 //	}

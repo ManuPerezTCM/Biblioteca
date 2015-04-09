@@ -16,7 +16,7 @@ public class BBDDPrestec {
 			em.persist(prestec);
 			tx.commit();
 		}catch (Exception e){
-			throw new Exception("Error al inserir el prï¿½stec: "+e.getMessage());
+			throw new Exception("Error al inserir el prèstec: "+e.getMessage());
 		}finally{
 			if(em != null)
 				em.close();

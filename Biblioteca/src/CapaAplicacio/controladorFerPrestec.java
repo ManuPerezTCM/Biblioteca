@@ -40,20 +40,20 @@ public class controladorFerPrestec {
 		exemplarObj = bbddExemplar.find(Long.parseLong(exemplar));
 				//fiable retorna un BOOLEAN indicant si al soci se li pot fer un pr�stec.
 				//disponible retorna un BOOLEAN indicant si el exemplar est� disponible
-		System.out.println("antes del if");
+		
+		//LA PRIMERA CONDICION FUNCIONA BIEN
+		//LA SEGUNDA CONDICION FUNCIONA BIEN
+		//LA TERCERA CONDICION FUNCIONA BIEN
 		if(bbddSoci.potDemanarPrestec(soci, exemplar) && exemplarObj.disponible()&& !bbddExemplar.estaEnPrestec(exemplar)){
-			System.out.println("Entro dins del if");
 			data_max_retorn = new Date();
-			Calendar calendar = null;
+			Calendar calendar = GregorianCalendar.getInstance();
 			//S'HA DE CAMBIAR PER FER QUE AGAFI EL VALOR DE DIES DE LA BBDD
 			calendar.add(data_max_retorn.getDay(), 5);//afegim el temps especificat. 
-			
 			prestec = new Prestec();
 			prestec.setSoci(sociObj);
 			prestec.setDataMaxRetorn(data_max_retorn);
-			this.prestec.setDataPrestec(data_prestec);
-			
-			this.bbddPrestec.afegirPrestec(this.prestec);			
+			this.bbddPrestec.afegirPrestec(this.prestec);	
+			System.out.println("Entro dins del if9");
 		}
 		System.out.println("NO entro dins del if");
 	}

@@ -50,8 +50,11 @@ public class controladorFerPrestec {
 			data_prestec = new Date();
 			data_max_retorn = new Date();
 			Calendar calendar = GregorianCalendar.getInstance();
+			
 			//S'HA DE CAMBIAR PER FER QUE AGAFI EL VALOR DE DIES DE LA BBDD
-			calendar.add(data_max_retorn.getDay(), 5);//afegim el temps especificat. 
+			calendar.setTime(data_max_retorn);
+			calendar.add(calendar.DAY_OF_MONTH, 5);//afegim el temps especificat. 
+			data_max_retorn = calendar.getTime();
 			
 			PrestecPK prestecPK = new PrestecPK();
 			prestecPK.setDataPrestec(data_prestec);

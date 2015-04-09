@@ -11,7 +11,8 @@ public class controladorLogin {
 	public controladorLogin() throws Exception{
 		bbddBibliotecari = new BBDDBibliotecari();
 		try{
-		ConnexioJPA.getInstancia("G5GEILAB2","G5P15"); //Crear una connexio amb el nostre usuari i contrasenya
+		//Crear una connexio amb el nostre usuari i contrasenya
+		ConnexioJPA.getInstancia("G5GEILAB2","G5P15");
 		} catch (Exception e){
 			throw new Exception("Error al fer get Instancaia: "+e.getMessage());
 		}

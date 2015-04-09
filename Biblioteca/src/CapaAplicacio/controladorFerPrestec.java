@@ -39,21 +39,14 @@ public class controladorFerPrestec {
 		bbddExemplar=new BBDDExemplar();
 		sociObj = bbddSoci.find(soci);
 		exemplarObj = bbddExemplar.find(Long.parseLong(exemplar));
-				//fiable retorna un BOOLEAN indicant si al soci se li pot fer un pr�stec.
-				//disponible retorna un BOOLEAN indicant si el exemplar est� disponible
-		
-		//LA PRIMERA CONDICION FUNCIONA BIEN
-		//LA SEGUNDA CONDICION FUNCIONA BIEN
-		//LA TERCERA CONDICION FUNCIONA BIEN
 		if(bbddSoci.potDemanarPrestec(soci, exemplar) && exemplarObj.disponible()&& !bbddExemplar.estaEnPrestec(exemplar)){
 			
 			data_prestec = new Date();
 			data_max_retorn = new Date();
 			Calendar calendar = GregorianCalendar.getInstance();
 			
-			//S'HA DE CAMBIAR PER FER QUE AGAFI EL VALOR DE DIES DE LA BBDD
 			calendar.setTime(data_max_retorn);
-			calendar.add(calendar.DAY_OF_MONTH, 5);//afegim el temps especificat. 
+			calendar.add(calendar.DAY_OF_MONTH, 5);
 			data_max_retorn = calendar.getTime();
 			
 			PrestecPK prestecPK = new PrestecPK();

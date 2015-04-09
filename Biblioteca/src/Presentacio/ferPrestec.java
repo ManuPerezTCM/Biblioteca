@@ -24,24 +24,6 @@ public class ferPrestec extends JFrame{
 	private controladorFerPrestec cont;
 
 	/**
-	 * Launch the application.
-	 */
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ferPrestec window = new ferPrestec();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-
-	/**
 	 * Create the application.
 	 */
 	public ferPrestec() {

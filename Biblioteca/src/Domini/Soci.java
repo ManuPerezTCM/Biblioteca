@@ -1,7 +1,12 @@
 package Domini;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import Domini.EstatsSoci.estatAbs;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -14,6 +19,24 @@ import java.util.Date;
 public class Soci implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Manu: atribut afegit per a la gestió de l'estat.
+	 */
+	@Transient
+	private estatAbs estatObj;
+	
+	/**
+	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
+	 */
+	@Transient
+	private ArrayList<Prestec> prestecsPerPagar;
+	
+	/**
+	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
+	 */
+	@Transient
+	private ArrayList<Prestec> prestecsPerTornar;
+	
 	@Id
 	private String dni;
 
@@ -91,7 +114,46 @@ public class Soci implements Serializable {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	
+	/**
+	 * @Autor Manu
+	 * @ Mètode afegit per a la gestió d'estat
+	 */
+	public void demanarPrestec(Exemplar exemplar) throws Exception{
+		this.estatObj = estatObj.demanarPrestec(this, exemplar);
+	}
+	
+	/**
+	 * @Autor Manu
+	 * @ Mètode afegit per a la gestió d'estat
+	 */
+	public void tornarPrestec(Exemplar exemplar) throws Exception{
+		this.estatObj = estatObj.tornarPrestec(this, exemplar);
+	}
+	
+	/**
+	 * @Autor Manu
+	 * @ Mètode afegit per a la gestió d'estat
+	 */
+	public void pagarPrestec(Exemplar exemplar) throws Exception{
+		this.estatObj = estatObj.pagarPrestec(this, exemplar);
+	}
 
+	/**
+	 * @Autor Manu
+	 * @ Mètode afegit per a la gestió d'estat
+	 */
+	public ArrayList<Prestec> getPrestecsPerTornar(){
+		return this.prestecsPerTornar;
+	}
+
+	/**
+	 * @Autor Manu
+	 * @ Mètode afegit per a la gestió d'estat
+	 */
+	public ArrayList<Prestec> getPrestecsPerPagar(){
+		return this.prestecsPerPagar;
+	}
 
 
 }

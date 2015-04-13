@@ -31,7 +31,7 @@ public class BBDDSoci {
 			return false;
 		}
 		
-		query = em.createNativeQuery("select * from prestec where DATA_REAL_RETORN IS NULL and soci=? and exemplar=?");
+		query = em.createNativeQuery("select * from prestec where DATA_REAL_RETORN IS NULL and soci=? and obra=?");
 		query.setParameter(1, soci);
 		query.setParameter(2, exemplar);
 		if(query.getResultList().size()>0){

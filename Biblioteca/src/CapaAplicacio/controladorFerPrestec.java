@@ -12,6 +12,10 @@ import Persistencia.BBDDExemplar;
 import Persistencia.BBDDPrestec;
 import Persistencia.BBDDSoci;
 
+/*
+el numero de dies es canvia quan es dona OK a fer prestec desde la pantalla
+el prestec que dona el soci es queda guardat com a atribut
+*/
 public class controladorFerPrestec {
 	
 	private Soci sociObj;

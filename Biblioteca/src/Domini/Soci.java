@@ -121,6 +121,8 @@ public class Soci implements Serializable {
 	 */
 	public void demanarPrestec(Exemplar exemplar) throws Exception{
 		this.estatObj = estatObj.demanarPrestec(this, exemplar);
+		//add prestec a prestecsPerTornar i retornar el prestec al controlador
+		//el controlador fara prestec p = soci.demanarPrestec(blablabla)
 	}
 	
 	/**

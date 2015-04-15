@@ -42,7 +42,13 @@ public class controladorFerPrestec {
 		bbddSoci=new BBDDSoci();
 		bbddExemplar=new BBDDExemplar();
 		sociObj = bbddSoci.find(soci);
+		if(sociObj==null){
+			throw new Exception("El soci seleccionat no existeix.");
+		}
 		exemplarObj = bbddExemplar.find(Long.parseLong(exemplar));
+		if(sociObj==null){
+			throw new Exception("L'exemplar seleccionat no existeix.");
+		}
 		if(bbddSoci.potDemanarPrestec(soci, exemplar) && exemplarObj.disponible()&& !bbddExemplar.estaEnPrestec(exemplar)){
 			
 			data_prestec = new Date();

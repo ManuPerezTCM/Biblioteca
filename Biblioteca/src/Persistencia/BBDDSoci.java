@@ -28,21 +28,21 @@ public class BBDDSoci {
 		query.setParameter(1, soci);
 		List<String> obs = query.getResultList();
 		if(obs.size()>2){
-			return false;
+			throw new Exception("El soci ja té 3 prèstecs i no pot fer més fins que retorni algun");
 		}
 		
 		query = em.createNativeQuery("select * from prestec where DATA_REAL_RETORN IS NULL and soci=? and obra=?");
 		query.setParameter(1, soci);
 		query.setParameter(2, exemplar);
 		if(query.getResultList().size()>0){
-			return false;
+			throw new Exception("El soci ja té en prèstec un exemplar de la mateixa obra");
 		}
 		
 		
 		query = em.createNativeQuery("select estat from soci where DNI=?");
 		query.setParameter(1, soci);
 		if(query.getResultList().get(0).equals("Moros")){
-			return false;
+			throw new Exception("El soci es morós i fins que deixi de ser-ho no pot demanar un altre prèstec");
 		}		
 		return true;
 	}

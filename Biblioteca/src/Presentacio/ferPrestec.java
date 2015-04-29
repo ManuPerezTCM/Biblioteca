@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import CapaAplicacio.controladorFerPrestec;
+import CapaAplicacio.controladorLogin;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -22,25 +23,27 @@ public class ferPrestec extends JFrame{
 	private JTextField fieldExemplarDemanat;
 	private JTextField fieldSoci;
 	private controladorFerPrestec cont;
+	private controladorLogin controladorLogin;
 
 	/**
 	 * Create the application.
 	 */
-	public ferPrestec() {
-		initialize();
+	public ferPrestec(controladorLogin controladorLogin) {
+		initialize(controladorLogin);
 		this.frame.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(controladorLogin controladorLogin) {
+		this.controladorLogin = controladorLogin;
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblFerPrstec = new JLabel("Fer Pr\u00E8stec");
+		JLabel lblFerPrstec = new JLabel("Fer Préstec");
 		lblFerPrstec.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblFerPrstec.setBounds(174, 26, 85, 14);
 		frame.getContentPane().add(lblFerPrstec);
@@ -63,13 +66,15 @@ public class ferPrestec extends JFrame{
 		frame.getContentPane().add(fieldSoci);
 		fieldSoci.setColumns(10);
 		
-		cont=new controladorFerPrestec();
+		cont=new controladorFerPrestec(controladorLogin);
 		
-		JButton btnFerPrstec = new JButton("FER PR\u00C8STEC");
+		JButton btnFerPrstec = new JButton("FER PRÉSTEC");
 		btnFerPrstec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					cont.enregistrarPrestec(fieldSoci.getText(), fieldExemplarDemanat.getText());
+					JOptionPane.showMessageDialog(new JFrame(), "Préstec inserit correctament a la Base de dades.", "Inserció Correcte",
+					        JOptionPane.PLAIN_MESSAGE);
 				}
 				catch(Exception ex){
 					JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Dialog",

@@ -31,7 +31,7 @@ public class BBDDSoci {
 			throw new Exception("El soci ja té 3 prèstecs i no pot fer més fins que retorni algun");
 		}
 		
-		query = em.createNativeQuery("select * from prestec where DATA_REAL_RETORN IS NULL and soci=? and obra=?");
+		query = em.createNativeQuery("select * from prestec where DATA_REAL_RETORN IS NULL and soci=? and exemplar=?");
 		query.setParameter(1, soci);
 		query.setParameter(2, exemplar);
 		if(query.getResultList().size()>0){

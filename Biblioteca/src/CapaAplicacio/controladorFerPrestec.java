@@ -38,19 +38,20 @@ public class controladorFerPrestec {
 		if (soci.equals("") || exemplar.equals("")){
 			throw new Exception("Introdueixi un soci i un exemplar per realitzar el pr�stec");
 		}
+		System.out.println("llega1");
 		bbddPrestec=new BBDDPrestec();
 		bbddSoci=new BBDDSoci();
 		bbddExemplar=new BBDDExemplar();
 		sociObj = bbddSoci.find(soci);
+		System.out.println("llega1");
 		if(sociObj==null){
 			throw new Exception("El soci seleccionat no existeix.");
 		}
 		exemplarObj = bbddExemplar.find(Long.parseLong(exemplar));
-		if(sociObj==null){
+		if(exemplarObj==null){
 			throw new Exception("L'exemplar seleccionat no existeix.");
 		}
 		if(bbddSoci.potDemanarPrestec(soci, exemplar) && exemplarObj.disponible()&& !bbddExemplar.estaEnPrestec(exemplar)){
-			
 			data_prestec = new Date();
 			data_max_retorn = new Date();
 			Calendar calendar = GregorianCalendar.getInstance();

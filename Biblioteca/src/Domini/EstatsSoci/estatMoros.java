@@ -24,5 +24,10 @@ public class estatMoros extends estatAbs {
 		// PRIMER RECUPEREM EL PRESTEC D'AQUEST SOCI ON TÉ AQUEST EXEMPLAR, L'ESBORREM I DESPRÉS:
 		return sociValid(soci, exemplar);
 	}
+	
+	@Override
+	public String toString(){
+		return "Moros";
+	}
 
 }

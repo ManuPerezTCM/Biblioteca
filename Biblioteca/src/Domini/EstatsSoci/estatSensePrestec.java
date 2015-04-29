@@ -25,5 +25,8 @@ public class estatSensePrestec extends estatAbs{
 		throw new Exception("Aquest soci no te res a pagar.");
 	}
 
-
+	@Override
+	public String toString(){
+		return "SensePrestec";
+	}
 }

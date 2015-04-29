@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import Domini.Prestec;
 import Domini.Soci;
 
 public class BBDDSoci {
@@ -45,6 +46,14 @@ public class BBDDSoci {
 			throw new Exception("El soci es morós i fins que deixi de ser-ho no pot demanar un altre prèstec");
 		}		
 		return true;
+	}
+
+	public void prestecAfegit(Prestec prestec) throws Exception {
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
+		Soci soci = prestec.getSoci();
+		em.getTransaction().begin();
+		soci.setEstat("AmbPrestec");
+		em.getTransaction().commit();
 	}
 
 }

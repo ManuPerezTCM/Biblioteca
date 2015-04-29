@@ -99,12 +99,15 @@ public class Soci implements Serializable {
 		this.dataBaixa = dataBaixa;
 	}
 
-	public String getEstat() {
-		return this.estat;
+	public estatAbs getEstatObj() {
+		return this.estatObj;
 	}
 
 	public void setEstat(String estat) {
 		this.estat = estat;
+	}
+	public void setEstatObj(estatAbs estat){
+		this.estatObj = estat;
 	}
 
 	public String getNom() {
@@ -113,6 +116,10 @@ public class Soci implements Serializable {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+	
+	public String getEstatString (){
+		return this.estat;
 	}
 	
 	/**
@@ -159,6 +166,8 @@ public class Soci implements Serializable {
 	public ArrayList<Prestec> getPrestecsPerPagar(){
 		return this.prestecsPerPagar;
 	}
+	
+	
 
 
 }

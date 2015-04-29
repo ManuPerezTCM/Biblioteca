@@ -9,12 +9,29 @@ import javax.persistence.Query;
 
 import Domini.Prestec;
 import Domini.Soci;
+import Domini.EstatsSoci.estatAmbPrestec;
+import Domini.EstatsSoci.estatMoros;
+import Domini.EstatsSoci.estatSensePrestec;
 
 public class BBDDSoci {
 
 	public Soci find(String soci) throws Exception {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
 		Soci retorn = em.find(Soci.class, soci);
+		 if(retorn.getEstatString().equals("SensePrestec"))
+		 {
+			 retorn.setEstatObj(new estatSensePrestec());
+		 }
+		 else{
+			 if(retorn.getEstatString().equals("AmbPrestec"))
+			 {
+				 retorn.setEstatObj(new estatAmbPrestec());
+			 }
+		 else
+		 {
+			 retorn.setEstatObj(new estatMoros());
+			 }
+		 }
 		em.close();
 		return retorn;
 	}
@@ -52,7 +69,6 @@ public class BBDDSoci {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
 		Soci soci = prestec.getSoci();
 		em.getTransaction().begin();
-		soci.setEstat("AmbPrestec");//actualitzem l'estat del soci
 		em.merge(soci);//el merge actualitza aquest soci a la BBDD
 		em.getTransaction().commit();
 	}

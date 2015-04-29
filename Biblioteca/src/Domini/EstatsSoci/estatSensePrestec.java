@@ -10,7 +10,6 @@ public class estatSensePrestec extends estatAbs{
 			throws Exception {
 		//POSAR A LA LLISTA I A LA BD EL PRESTEC DEL SOCI I L'EXEMPLAR I DESPRES
 		//mirar que soci no estigui de baixa
-		soci.setEstat("AmbPrestec");
 		return sociValid(soci, exemplar);
 	}
 

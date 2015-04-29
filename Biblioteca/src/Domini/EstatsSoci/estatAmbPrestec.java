@@ -6,8 +6,6 @@ import Domini.Soci;
 public class estatAmbPrestec extends estatAbs{
 
 	@Override
-	//No m'agrada això, el .size<=2 hauria de ser el paràmetre que te la biblioteca on s'especifica quants
-	//préstecs puc tenir a l'hora, com ha dit en debru a classe, de metres ho deixo aixi
 	public estatAbs demanarPrestec(Soci soci, Exemplar exemplar)
 			throws Exception {
 		if(soci.getPrestecsPerTornar()<=2)
@@ -17,10 +15,8 @@ public class estatAmbPrestec extends estatAbs{
 	}
 
 	@Override
-	//PER COMPLETAR
 	public estatAbs tornarPrestec(Soci soci, Exemplar exemplar)
 			throws Exception {
-		//PRIMER S'HA DE VEURE SI EL PRÉSTEC D'AQUEST SOCI AMB AQUEST EXEMPLAR ES TORNA A TEMPS O PASSAT EL PERIODE.
 		return sociValid(soci, exemplar);
 	}
 

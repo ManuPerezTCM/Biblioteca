@@ -16,7 +16,6 @@ public class BBDDPrestec {
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
 			em.persist(prestec);
-			//bbddSoci.prestecAfegit(prestec);
 			tx.commit();
 		}catch (Exception e){
 			throw new Exception("Error al inserir el pr�stec: "+e.getMessage());

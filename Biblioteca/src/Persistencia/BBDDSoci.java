@@ -83,7 +83,7 @@ public class BBDDSoci {
 				.createEntityManager();
 		Soci soci = prestec.getSoci();
 		em.getTransaction().begin();
-		em.merge(soci);// el merge actualitza aquest soci a la BBDD
+		em.merge(soci);
 		em.getTransaction().commit();
 	}
 

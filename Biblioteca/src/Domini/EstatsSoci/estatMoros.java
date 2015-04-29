@@ -19,9 +19,7 @@ public class estatMoros extends estatAbs {
 	}
 
 	@Override
-	//PER COMPLETAR
 	public estatAbs pagarPrestec(Soci soci, Exemplar exemplar) throws Exception {
-		// PRIMER RECUPEREM EL PRESTEC D'AQUEST SOCI ON TÉ AQUEST EXEMPLAR, L'ESBORREM I DESPRÉS:
 		return sociValid(soci, exemplar);
 	}
 	

@@ -16,10 +16,10 @@ public class BBDDPrestec {
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
 			em.persist(prestec);
-			bbddSoci.prestecAfegit(prestec);
+			//bbddSoci.prestecAfegit(prestec);
 			tx.commit();
 		}catch (Exception e){
-			throw new Exception("Error al inserir el prèstec: "+e.getMessage());
+			throw new Exception("Error al inserir el prï¿½stec: "+e.getMessage());
 		}finally{
 			if(em != null)
 				em.close();

@@ -52,7 +52,8 @@ public class BBDDSoci {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
 		Soci soci = prestec.getSoci();
 		em.getTransaction().begin();
-		soci.setEstat("AmbPrestec");
+		soci.setEstat("AmbPrestec");//actualitzem l'estat del soci
+		em.merge(soci);//el merge actualitza aquest soci a la BBDD
 		em.getTransaction().commit();
 	}
 

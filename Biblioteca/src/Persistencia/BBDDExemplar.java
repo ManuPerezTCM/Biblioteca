@@ -25,6 +25,8 @@ public class BBDDExemplar {
 		if( q.getResultList().size()>0){
 			throw new Exception("L'exemplar seleccionat ja està siguent prestat.");
 		}
+		
+		
 		return false;
 	}
 

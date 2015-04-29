@@ -10,7 +10,7 @@ public class estatAmbPrestec extends estatAbs{
 	//préstecs puc tenir a l'hora, com ha dit en debru a classe, de metres ho deixo aixi
 	public estatAbs demanarPrestec(Soci soci, Exemplar exemplar)
 			throws Exception {
-		if(soci.getPrestecsPerTornar().size()<=2)
+		if(soci.getPrestecsPerTornar()<=2)
 			return new estatAmbPrestec();
 		else
 			throw new Exception("Aquest soci ja te el límit de préstecs.");

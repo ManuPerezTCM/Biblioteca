@@ -16,60 +16,74 @@ import Domini.EstatsSoci.estatSensePrestec;
 public class BBDDSoci {
 
 	public Soci find(String soci) throws Exception {
-		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
 		Soci retorn = em.find(Soci.class, soci);
-		 if(retorn.getEstatString().equals("SensePrestec"))
-		 {
-			 retorn.setEstatObj(new estatSensePrestec());
-		 }
-		 else{
-			 if(retorn.getEstatString().equals("AmbPrestec"))
-			 {
-				 retorn.setEstatObj(new estatAmbPrestec());
-			 }
-		 else
-		 {
-			 retorn.setEstatObj(new estatMoros());
-			 }
-		 }
+		if (retorn.getEstatString().equals("SensePrestec")) {
+			retorn.setEstatObj(new estatSensePrestec());
+		} else {
+			if (retorn.getEstatString().equals("AmbPrestec")) {
+				retorn.setEstatObj(new estatAmbPrestec());
+			} else {
+				retorn.setEstatObj(new estatMoros());
+			}
+		}
+		Query queryTornar = em
+				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NULL");
+		queryTornar.setParameter(1, soci);
+		int perTornar = queryTornar.getResultList().size();
+		
+		Query queryPagar = em
+				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NOT NULL AND DATA_PAGAMENT IS NULL");
+		queryPagar.setParameter(1, soci);
+		int perPagar = queryPagar.getResultList().size();
+		retorn.setPrestecsPerPagar(perPagar);
+		retorn.setPrestecsPerTornar(perTornar);
 		em.close();
 		return retorn;
 	}
-	
-	public boolean potDemanarPrestec(String soci, String exemplar)throws Exception{
-		if(find(soci)==null){
+
+	public boolean potDemanarPrestec(String soci, String exemplar)
+			throws Exception {
+		if (find(soci) == null) {
 			return false;
 		}
-		
-		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
-		Query query = em.createNativeQuery("SELECT DATA_PRESTEC FROM prestec where DATA_REAL_RETORN IS NULL and soci=?");
+
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
+		Query query = em
+				.createNativeQuery("SELECT DATA_PRESTEC FROM prestec where DATA_REAL_RETORN IS NULL and soci=?");
 		query.setParameter(1, soci);
 		List<String> obs = query.getResultList();
-		if(obs.size()>2){
-			throw new Exception("El soci ja té 3 prèstecs i no pot fer més fins que retorni algun");
+		if (obs.size() > 2) {
+			throw new Exception(
+					"El soci ja tï¿½ 3 prï¿½stecs i no pot fer mï¿½s fins que retorni algun");
 		}
-		
-		query = em.createNativeQuery("select * from prestec where DATA_REAL_RETORN IS NULL and soci=? and exemplar=?");
+
+		query = em
+				.createNativeQuery("select * from prestec where DATA_REAL_RETORN IS NULL and soci=? and exemplar=?");
 		query.setParameter(1, soci);
 		query.setParameter(2, exemplar);
-		if(query.getResultList().size()>0){
-			throw new Exception("El soci ja té en prèstec un exemplar de la mateixa obra");
+		if (query.getResultList().size() > 0) {
+			throw new Exception(
+					"El soci ja tï¿½ en prï¿½stec un exemplar de la mateixa obra");
 		}
-		
-		
+
 		query = em.createNativeQuery("select estat from soci where DNI=?");
 		query.setParameter(1, soci);
-		if(query.getResultList().get(0).equals("Moros")){
-			throw new Exception("El soci es morós i fins que deixi de ser-ho no pot demanar un altre prèstec");
-		}		
+		if (query.getResultList().get(0).equals("Moros")) {
+			throw new Exception(
+					"El soci es morï¿½s i fins que deixi de ser-ho no pot demanar un altre prï¿½stec");
+		}
 		return true;
 	}
 
 	public void prestecAfegit(Prestec prestec) throws Exception {
-		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
 		Soci soci = prestec.getSoci();
 		em.getTransaction().begin();
-		em.merge(soci);//el merge actualitza aquest soci a la BBDD
+		em.merge(soci);// el merge actualitza aquest soci a la BBDD
 		em.getTransaction().commit();
 	}
 

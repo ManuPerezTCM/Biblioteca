@@ -29,13 +29,13 @@ public class Soci implements Serializable {
 	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
 	 */
 	@Transient
-	private ArrayList<Prestec> prestecsPerPagar;
+	private int prestecsPerPagar;
 	
 	/**
 	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
 	 */
 	@Transient
-	private ArrayList<Prestec> prestecsPerTornar;
+	private int prestecsPerTornar;
 	
 	@Id
 	private String dni;
@@ -155,7 +155,7 @@ public class Soci implements Serializable {
 	 * @Autor Manu
 	 * @ Mètode afegit per a la gestió d'estat
 	 */
-	public ArrayList<Prestec> getPrestecsPerTornar(){
+	public int getPrestecsPerTornar(){
 		return this.prestecsPerTornar;
 	}
 
@@ -163,11 +163,17 @@ public class Soci implements Serializable {
 	 * @Autor Manu
 	 * @ Mètode afegit per a la gestió d'estat
 	 */
-	public ArrayList<Prestec> getPrestecsPerPagar(){
+	public int getPrestecsPerPagar(){
 		return this.prestecsPerPagar;
 	}
 	
+	public void setPrestecsPerPagar(int i){
+		this.prestecsPerPagar = i;
+	}
 	
+	public void setPrestecsPerTornar(int i){
+		this.prestecsPerTornar = i;
+	}
 
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import Domini.Exemplar;
 import Domini.Prestec;
 import Domini.Soci;
 import Domini.EstatsSoci.estatAmbPrestec;
@@ -85,6 +86,25 @@ public class BBDDSoci {
 		em.getTransaction().begin();
 		em.merge(soci);
 		em.getTransaction().commit();
+	}
+
+	public boolean sociTeObra(Exemplar exemplarObj, Soci sociObj) throws Exception {
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
+		Query query;
+		
+		query = em
+				.createNativeQuery("select e.obra from prestec p join exemplar e on p.exemplar = e.registre where DATA_REAL_RETORN IS NULL and soci=? and exemplar=?");
+		query.setParameter(1, sociObj.getDni());
+		query.setParameter(2, exemplarObj.getRegistre());
+		
+		List<String> lista = query.getResultList();		
+		for(String obra : lista ){
+			if(obra.equals(exemplarObj.getObra().getIsbn())){
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

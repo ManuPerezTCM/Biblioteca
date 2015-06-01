@@ -53,9 +53,11 @@ public class controladorFerPrestec {
 		if (exemplarObj == null) {
 			throw new Exception("L'exemplar seleccionat no existeix.");
 		}
-		if (bbddSoci.potDemanarPrestec(soci, exemplar)
+		//if (bbddSoci.potDemanarPrestec(soci, exemplar)
+		if (sociObj.potDemanarPrestec()
+				&& bbddSoci.sociTeObra(exemplarObj, sociObj)
 				&& exemplarObj.disponible()
-				&& !bbddExemplar.estaEnPrestec(exemplar)) {
+				&& bbddExemplar.disponible(exemplarObj)) {
 			data_prestec = new Date();
 			data_max_retorn = new Date();
 			Calendar calendar = GregorianCalendar.getInstance();

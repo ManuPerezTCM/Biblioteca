@@ -18,7 +18,7 @@ public class BBDDExemplar {
 		return retorn;
 	}
 	
-	public boolean estaEnPrestec(String exemplar) throws Exception{
+	public boolean disponible(Exemplar exemplar) throws Exception{
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
 		Query q = em.createNativeQuery("select * from prestec where exemplar=? and DATA_REAL_RETORN IS NULL");
 		q.setParameter(1, exemplar);
@@ -26,8 +26,15 @@ public class BBDDExemplar {
 			throw new Exception("L'exemplar seleccionat ja està siguent prestat.");
 		}
 		
+		q = em.createNativeQuery("select * from exemplar where registre=? and DATA_BAIXA IS NULL");
+		q.setParameter(1, exemplar.getRegistre());
+		if( q.getResultList().size()>0){
+			return true;
+		}	
+		else{
+			throw new Exception("L'exemplar seleccionat està de baixa");		
+		}
 		
-		return false;
 	}
 
 }

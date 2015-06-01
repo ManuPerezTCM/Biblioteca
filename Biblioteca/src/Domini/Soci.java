@@ -122,6 +122,14 @@ public class Soci implements Serializable {
 		return this.estat;
 	}
 	
+	public boolean potDemanarPrestec () throws Exception{
+		String estatSoci = estatObj.demanarPrestec(this, exemplar).toString();
+		if(estatSoci.equals("AmbPrestec")){			
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * @Autor Manu
 	 * @ Mètode afegit per a la gestió d'estat

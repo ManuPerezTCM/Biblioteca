@@ -20,6 +20,9 @@ public class BBDDSoci {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
 				.createEntityManager();
 		Soci retorn = em.find(Soci.class, soci);
+		if(retorn.getDataBaixa() == null){ // això ha de controlar que no és puguin declarar socis donats de baixa
+			return null;
+		}
 		if (retorn.getEstatString().equals("SensePrestec")) {
 			retorn.setEstatObj(new estatSensePrestec());
 		} else {
@@ -101,10 +104,10 @@ public class BBDDSoci {
 		List<String> lista = query.getResultList();		
 		for(String obra : lista ){
 			if(obra.equals(exemplarObj.getObra().getIsbn())){
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 }

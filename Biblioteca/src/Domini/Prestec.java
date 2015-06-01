@@ -5,7 +5,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -44,8 +46,15 @@ public class Prestec implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="SOCI")
 	private Soci soci;
+	
 
 	public Prestec() {
+		dataMaxRetorn = new Date();
+		Calendar calendar = GregorianCalendar.getInstance();
+
+		calendar.setTime(dataMaxRetorn);
+		calendar.add(calendar.DAY_OF_MONTH, Biblioteca.getInstancia().getDiesDePrestec().intValue());
+		dataMaxRetorn = calendar.getTime();
 	}
 
 	public PrestecPK getId() {

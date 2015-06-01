@@ -1,6 +1,8 @@
 package Domini;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 /**
@@ -23,6 +25,7 @@ public class PrestecPK implements Serializable {
 	private java.util.Date dataPrestec;
 
 	public PrestecPK() {
+		dataPrestec = new Date();
 	}
 	public long getExemplar() {
 		return this.exemplar;

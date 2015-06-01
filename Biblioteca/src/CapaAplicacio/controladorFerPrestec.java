@@ -32,7 +32,7 @@ public class controladorFerPrestec {
 	private Biblioteca biblioteca;
 
 	public controladorFerPrestec(controladorLogin controladorLogin) {
-		this.biblioteca = controladorLogin.getBiblioteca();
+//		this.biblioteca = controladorLogin.getBiblioteca();
 	}
 
 	// String soci ï¿½s el seu DNI i String exemplar ï¿½s el REGISTRE
@@ -47,25 +47,15 @@ public class controladorFerPrestec {
 		bbddExemplar = new BBDDExemplar();
 		sociObj = bbddSoci.find(soci);
 		if (sociObj == null) {
-			throw new Exception("El soci seleccionat no existeix.");
+			throw new Exception("El soci seleccionat no existeix o està de baixa.");
 		}
 		exemplarObj = bbddExemplar.find(Long.parseLong(exemplar));
 		if (exemplarObj == null) {
 			throw new Exception("L'exemplar seleccionat no existeix.");
 		}
 		//if (bbddSoci.potDemanarPrestec(soci, exemplar)
-		if (sociObj.potDemanarPrestec()
-				&& bbddSoci.sociTeObra(exemplarObj, sociObj)
-				&& exemplarObj.disponible()
-				&& bbddExemplar.disponible(exemplarObj)) {
-			data_prestec = new Date();
-			data_max_retorn = new Date();
-			Calendar calendar = GregorianCalendar.getInstance();
-
-			calendar.setTime(data_max_retorn);
-			calendar.add(calendar.DAY_OF_MONTH, biblioteca.getDiesDePrestec().intValue());
-			data_max_retorn = calendar.getTime();
-
+		if (prestecPermes()) {
+			
 			PrestecPK prestecPK = new PrestecPK();
 			prestecPK.setDataPrestec(data_prestec);
 			prestecPK.setSoci(soci);
@@ -80,5 +70,11 @@ public class controladorFerPrestec {
 			sociObj.demanarPrestec(exemplarObj);
 			bbddSoci.prestecAfegit(prestec);
 		}
+	}
+	private boolean prestecPermes() throws Exception{
+		return sociObj.potDemanarPrestec()
+				&& !bbddSoci.sociTeObra(exemplarObj, sociObj)
+				&& exemplarObj.disponible()
+				&& bbddExemplar.disponible(exemplarObj);
 	}
 }

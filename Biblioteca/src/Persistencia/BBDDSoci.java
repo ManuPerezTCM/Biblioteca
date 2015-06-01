@@ -65,7 +65,8 @@ public class BBDDSoci {
 		}
 
 		query = em
-				.createNativeQuery("select * from prestec where DATA_REAL_RETORN IS NULL and soci=? and exemplar=?");
+				.createNativeQuery("select * from prestec join exemplar on prestec.exemplar=exemplar.registre"
+						+ "where prestec.DATA_REAL_RETORN IS NULL and prestec.soci=? and exemplar.obra=?");
 		query.setParameter(1, soci);
 		query.setParameter(2, exemplar);
 		if (query.getResultList().size() > 0) {

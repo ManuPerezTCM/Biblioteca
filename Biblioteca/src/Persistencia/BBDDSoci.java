@@ -64,16 +64,6 @@ public class BBDDSoci {
 					"El soci ja t� 3 pr�stecs i no pot fer m�s fins que retorni algun");
 		}
 
-		query = em
-				.createNativeQuery("select * from prestec join exemplar on prestec.exemplar=exemplar.registre"
-						+ "where prestec.DATA_REAL_RETORN IS NULL and prestec.soci=? and exemplar.obra=?");
-		query.setParameter(1, soci);
-		query.setParameter(2, exemplar);
-		if (query.getResultList().size() > 0) {
-			throw new Exception(
-					"El soci ja t� en pr�stec un exemplar de la mateixa obra");
-		}
-
 		query = em.createNativeQuery("select estat from soci where DNI=?");
 		query.setParameter(1, soci);
 		if (query.getResultList().get(0).equals("Moros")) {

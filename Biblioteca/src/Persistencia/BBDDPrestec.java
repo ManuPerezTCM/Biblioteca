@@ -10,7 +10,6 @@ public class BBDDPrestec {
 	
 	public void afegirPrestec(Prestec prestec) throws Exception {
 		EntityManager em = null;
-		BBDDSoci bbddSoci = new BBDDSoci();
 		try{
 			em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
 			EntityTransaction tx = em.getTransaction();

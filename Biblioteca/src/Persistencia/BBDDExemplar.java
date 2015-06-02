@@ -34,7 +34,7 @@ public class BBDDExemplar {
 			return true;
 		}	
 		else{
-			throw new Exception("L'exemplar seleccionat està de baixa");		
+			throw new Exception("L'exemplar seleccionat no està disponible");		
 		}
 		
 	}

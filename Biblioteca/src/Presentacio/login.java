@@ -143,7 +143,7 @@ public class login extends JFrame {
 	
 	private void seleccio(){
 		try{
-			new seleccio(controladorLogin);		
+			new seleccio();		
 			this.dispose();
 		}
 		catch(Exception e){

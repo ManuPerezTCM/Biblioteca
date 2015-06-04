@@ -29,16 +29,15 @@ public class ferPrestec extends JFrame{
 	/**
 	 * Create the application.
 	 */
-	public ferPrestec(controladorLogin controladorLogin) {
-		initialize(controladorLogin);
+	public ferPrestec() {
+		initialize();
 		this.frame.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(controladorLogin controladorLogin) {
-		this.controladorLogin = controladorLogin;
+	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,7 +66,7 @@ public class ferPrestec extends JFrame{
 		frame.getContentPane().add(fieldSoci);
 		fieldSoci.setColumns(10);
 		
-		cont=new controladorFerPrestec(controladorLogin);
+		cont=new controladorFerPrestec();
 		
 		JButton btnFerPrstec = new JButton("FER PRÉSTEC");
 		btnFerPrstec.addActionListener(new ActionListener() {

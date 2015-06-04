@@ -21,10 +21,8 @@ import java.awt.event.ActionEvent;
 public class seleccio extends JFrame {
 
 	private JPanel contentPane;
-	private controladorLogin controladorLogin;
-	
-	public seleccio(controladorLogin controladorLogin) {
-		this.controladorLogin = controladorLogin;
+
+	public seleccio() {
 		this.setVisible(true);
 		setTitle("Mini Biblioteca");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,7 +107,7 @@ public class seleccio extends JFrame {
 
 	private void ferPrestec() {
 		try {
-			new ferPrestec(controladorLogin);
+			new ferPrestec();
 			this.dispose();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error",

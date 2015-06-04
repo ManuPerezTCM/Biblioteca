@@ -33,10 +33,7 @@ public class Biblioteca implements Serializable {
 		instancia = this;
 	}
 	
-	public static Biblioteca getInstancia() throws Exception{
-		if(instancia == null)
-			throw new Exception("La biblioteca no esta inicialitzada.");
-		else
+	public static Biblioteca getInstancia(){
 			return instancia;
 	}
 

@@ -124,7 +124,7 @@ public class login extends JFrame {
 				try {
 					controladorLogin.comprovar(textFieldNom.getText(),
 							textFieldContrasenya.getText());
-					ferPrestec();
+					seleccio();
 				} catch (Exception e1) {
 					tirarError(e1.getMessage());
 				}
@@ -141,15 +141,13 @@ public class login extends JFrame {
 				JOptionPane.ERROR_MESSAGE);
 	}
 	
-	private void ferPrestec(){
+	private void seleccio(){
 		try{
-			new ferPrestec(controladorLogin);		
+			new seleccio();		
 			this.dispose();
 		}
 		catch(Exception e){
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		
-		
 	}
 }

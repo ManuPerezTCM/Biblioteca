@@ -31,8 +31,8 @@ public class controladorFerPrestec {
 	private Prestec prestec;
 	private Biblioteca biblioteca;
 
-	public controladorFerPrestec(controladorLogin controladorLogin) {
-		// this.biblioteca = controladorLogin.getBiblioteca();
+	public controladorFerPrestec() {
+		this.biblioteca = biblioteca.getInstancia();
 	}
 
 	// String soci �s el seu DNI i String exemplar �s el REGISTRE

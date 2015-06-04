@@ -64,7 +64,6 @@ public class controladorFerPrestec {
 			prestec.setId(prestecPK);
 			prestec.setExemplar(exemplarObj);
 			prestec.setSoci(sociObj);
-			prestec.setDataMaxRetorn(data_max_retorn);
 			
 			this.bbddPrestec.afegirPrestec(this.prestec);
 			sociObj.demanarPrestec(exemplarObj);

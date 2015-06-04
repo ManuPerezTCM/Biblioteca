@@ -41,6 +41,7 @@ public class BBDDSoci {
 				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NOT NULL AND DATA_PAGAMENT IS NULL");
 		queryPagar.setParameter(1, soci);
 		int perPagar = queryPagar.getResultList().size();
+		
 		retorn.setPrestecsPerPagar(perPagar);
 		retorn.setPrestecsPerTornar(perTornar);
 		em.close();

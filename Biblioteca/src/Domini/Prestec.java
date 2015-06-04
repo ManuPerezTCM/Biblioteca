@@ -48,7 +48,7 @@ public class Prestec implements Serializable {
 	private Soci soci;
 	
 
-	public Prestec() {
+	public Prestec() throws Exception {
 		dataMaxRetorn = new Date();
 		Calendar calendar = GregorianCalendar.getInstance();
 

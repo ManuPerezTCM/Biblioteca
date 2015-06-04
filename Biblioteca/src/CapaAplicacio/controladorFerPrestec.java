@@ -36,7 +36,7 @@ public class controladorFerPrestec {
 	}
 
 	// String soci �s el seu DNI i String exemplar �s el REGISTRE
-	public void enregistrarPrestec(String soci, String exemplar)
+	public Date enregistrarPrestec(String soci, String exemplar)
 			throws Exception {
 		if (soci.equals("") || exemplar.equals("")) {
 			throw new Exception(
@@ -82,6 +82,7 @@ public class controladorFerPrestec {
 			sociObj.demanarPrestec(exemplarObj);
 			bbddSoci.prestecAfegit(prestec);
 		}
+		return prestec.getDataMaxRetorn();
 	}
 
 	private boolean prestecPermes() throws Exception {

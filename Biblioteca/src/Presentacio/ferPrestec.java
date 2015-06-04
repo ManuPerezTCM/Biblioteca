@@ -16,6 +16,7 @@ import CapaAplicacio.controladorLogin;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 
 public class ferPrestec extends JFrame{
 
@@ -68,12 +69,12 @@ public class ferPrestec extends JFrame{
 		
 		cont=new controladorFerPrestec(controladorLogin);
 		
-		JButton btnFerPrstec = new JButton("FER PRÃ‰STEC");
+		JButton btnFerPrstec = new JButton("FER PRÉSTEC");
 		btnFerPrstec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
-					cont.enregistrarPrestec(fieldSoci.getText(), fieldExemplarDemanat.getText());
-					JOptionPane.showMessageDialog(new JFrame(), "PrÃ©stec inserit correctament a la Base de dades.", "InserciÃ³ Correcte",
+					Date data = cont.enregistrarPrestec(fieldSoci.getText(), fieldExemplarDemanat.getText());
+					JOptionPane.showMessageDialog(new JFrame(), "Préstec inserit correctament a la Base de dades. \n Ultim dia de retorn: "+data.toString(), "Inserció Correcte",
 					        JOptionPane.PLAIN_MESSAGE);
 				}
 				catch(Exception ex){

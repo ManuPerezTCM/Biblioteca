@@ -26,8 +26,18 @@ public class Biblioteca implements Serializable {
 
 	@Column(name="PRESTECS_SIMULTANIS")
 	private BigDecimal prestecsSimultanis;
+	
+	private static Biblioteca instancia;
 
 	public Biblioteca() {
+		instancia = this;
+	}
+	
+	public static Biblioteca getInstancia() throws Exception{
+		if(instancia == null)
+			throw new Exception("La biblioteca no esta inicialitzada.");
+		else
+			return instancia;
 	}
 
 	public String getIdBiblioteca() {

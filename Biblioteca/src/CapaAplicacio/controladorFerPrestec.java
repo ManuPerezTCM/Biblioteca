@@ -32,7 +32,7 @@ public class controladorFerPrestec {
 	private Biblioteca biblioteca;
 
 	public controladorFerPrestec(controladorLogin controladorLogin) {
-//		this.biblioteca = controladorLogin.getBiblioteca();
+		// this.biblioteca = controladorLogin.getBiblioteca();
 	}
 
 	// String soci ï¿½s el seu DNI i String exemplar ï¿½s el REGISTRE
@@ -42,20 +42,33 @@ public class controladorFerPrestec {
 			throw new Exception(
 					"Introdueixi un soci i un exemplar per realitzar el prï¿½stec");
 		}
+		String lletra = "TRWAGMYFPDXBNJZSQVHLCKE";
+		if (soci.length() != 9) {
+			for (int i = 0; i < 8; i++) {
+				if (Character.isDigit(soci.charAt(i)))
+					throw new Exception(
+							"DNI No vàlid. Introdueix 8 nombres i una lletra");
+			}
+			Integer valor = new Integer(soci.substring(0, 8));
+			int aux = valor % 23;
+			if(soci.charAt(8)!=lletra.charAt(aux))
+				throw new Exception("DNI No Vàlid. No concorda la lletra amb el DNI");
+		}
 		bbddPrestec = new BBDDPrestec();
 		bbddSoci = new BBDDSoci();
 		bbddExemplar = new BBDDExemplar();
 		sociObj = bbddSoci.find(soci);
 		if (sociObj == null) {
-			throw new Exception("El soci seleccionat no existeix o està de baixa.");
+			throw new Exception(
+					"El soci seleccionat no existeix o està de baixa.");
 		}
 		exemplarObj = bbddExemplar.find(Long.parseLong(exemplar));
 		if (exemplarObj == null) {
 			throw new Exception("L'exemplar seleccionat no existeix.");
 		}
-		//if (bbddSoci.potDemanarPrestec(soci, exemplar)
+		// if (bbddSoci.potDemanarPrestec(soci, exemplar)
 		if (prestecPermes()) {
-			
+
 			PrestecPK prestecPK = new PrestecPK();
 			prestecPK.setDataPrestec(data_prestec);
 			prestecPK.setSoci(soci);
@@ -64,13 +77,14 @@ public class controladorFerPrestec {
 			prestec.setId(prestecPK);
 			prestec.setExemplar(exemplarObj);
 			prestec.setSoci(sociObj);
-			
+
 			this.bbddPrestec.afegirPrestec(this.prestec);
 			sociObj.demanarPrestec(exemplarObj);
 			bbddSoci.prestecAfegit(prestec);
 		}
 	}
-	private boolean prestecPermes() throws Exception{
+
+	private boolean prestecPermes() throws Exception {
 		return sociObj.potDemanarPrestec()
 				&& !bbddSoci.sociTeObra(exemplarObj, sociObj)
 				&& exemplarObj.disponible()

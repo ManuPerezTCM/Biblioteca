@@ -20,7 +20,10 @@ public class BBDDSoci {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
 				.createEntityManager();
 		Soci retorn = em.find(Soci.class, soci);
-		if(retorn.getDataBaixa() == null){ // això ha de controlar que no és puguin declarar socis donats de baixa
+		if(retorn==null){
+			throw new Exception("Soci no trobat");
+		}
+		if(retorn.getDataBaixa() != null){ // això ha de controlar que no és puguin declarar socis donats de baixa
 			return null;
 		}
 		if (retorn.getEstatString().equals("SensePrestec")) {

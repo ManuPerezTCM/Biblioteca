@@ -54,4 +54,10 @@ public class controladorRetornPrestec {
 		}
 		this.bbddPrestec.retornarPrestec(this.prestec);
 	}
+	
+	public void negarRetorn(){
+		this.prestec = null;
+		this.exemplar = null;
+		this.deutePrestec = 0;
+	}
 }

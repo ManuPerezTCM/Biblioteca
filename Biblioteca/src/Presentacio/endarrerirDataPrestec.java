@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -22,27 +24,11 @@ public class endarrerirDataPrestec extends JFrame {
 	private JTextField textFieldIntrodueixSoci;
 	private JTextField textFieldIntrodueixDies;
 	private controladorEndarrerirDataPrestec cont;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					endarrerirDataPrestec frame = new endarrerirDataPrestec();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
 	public endarrerirDataPrestec() {
+		this.cont=new controladorEndarrerirDataPrestec();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -68,9 +54,15 @@ public class endarrerirDataPrestec extends JFrame {
 		btnOkSoci.setBounds(297, 51, 89, 23);
 		contentPane.add(btnOkSoci);
 		
-		JLabel lblSeleccionaUnPrstec = new JLabel("Selecciona un pr\u00E8stec per endarrerir");
-		lblSeleccionaUnPrstec.setBounds(35, 91, 182, 14);
-		contentPane.add(lblSeleccionaUnPrstec);
+		btnOkSoci.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
+		
+		JLabel lblSeleccionaUnPrestec = new JLabel("Selecciona un pr\u00E8stec per endarrerir");
+		lblSeleccionaUnPrestec.setBounds(35, 91, 182, 14);
+		contentPane.add(lblSeleccionaUnPrestec);
 		
 		JList listPrestecsSoci = new JList();
 		listPrestecsSoci.setBounds(45, 194, 104, -58);

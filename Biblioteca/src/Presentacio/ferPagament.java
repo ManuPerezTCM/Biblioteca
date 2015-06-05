@@ -1,26 +1,41 @@
 package Presentacio;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
-import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
+
+import CapaAplicacio.controladorFerPagament;
+import Domini.Prestec;
+
 
 public class ferPagament extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldSoci;
-
+	private JList list;
+	private controladorFerPagament controladorFerPagament;	
+	
 	public ferPagament() {
+		try {
+			controladorFerPagament = new controladorFerPagament();
+		} catch (Exception e) {
+			tirarError(e.getMessage());
+		}
 		setTitle("Fer Pagament de Pr\u00E9stec");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -33,16 +48,26 @@ public class ferPagament extends JFrame {
 		
 		textFieldSoci = new JTextField();
 		textFieldSoci.setColumns(10);
-		
-		JButton btnValidar = new JButton("Validar");
-		
-		JList list = new JList();
+	
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		JLabel lblSeleccionaElPrstec = new JLabel("Selecciona el pr\u00E9stec a pagar:");
 		
 		JLabel lblImportACobrar = new JLabel("Import a cobrar:");
 		
 		JLabel lblImport = new JLabel("");
+		
+		JButton btnValidar = new JButton("Validar");
+		btnValidar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					ArrayList<Prestec> perPagar = controladorFerPagament.getPrestecsPerPagar(textFieldSoci.getText());
+					list = new JList(perPagar.toArray());
+				} catch (Exception e1) {
+					tirarError(e1.getMessage());
+				}
+			}
+		});
 		
 		JButton btnCobrar = new JButton("Cobrar");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -93,5 +118,10 @@ public class ferPagament extends JFrame {
 					.addGap(39))
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+
+	private void tirarError(String message) {
+		JOptionPane.showMessageDialog(new JFrame(), message, "Error",
+				JOptionPane.ERROR_MESSAGE);
 	}
 }

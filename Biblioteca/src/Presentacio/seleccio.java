@@ -53,6 +53,7 @@ public class seleccio extends JFrame {
 		JButton btnPagarPrstec = new JButton("Pagar Pr\u00E9stec");
 		btnPagarPrstec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ferPagament();
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -110,8 +111,21 @@ public class seleccio extends JFrame {
 			new ferPrestec();
 			this.dispose();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Error",
-					JOptionPane.ERROR_MESSAGE);
+			tirarError(e.getMessage());
 		}
+	}
+	
+	private void ferPagament(){
+		try {
+			new ferPagament();
+			this.dispose();
+		} catch (Exception e) {
+			tirarError(e.getMessage());
+		}
+	}
+	
+	private void tirarError(String message) {
+		JOptionPane.showMessageDialog(new JFrame(), message, "Error",
+				JOptionPane.ERROR_MESSAGE);
 	}
 }

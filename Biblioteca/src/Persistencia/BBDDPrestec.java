@@ -63,5 +63,24 @@ public class BBDDPrestec {
 		}
 	}
 	
+	/**
+	 * @Autor Manu
+	 * @ Retorna arraylist de prestecs que estan per pagar.
+	 */
+	public ArrayList<Prestec> findPrestecsPerPagar(String soci) throws Exception {
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
+		ArrayList<Prestec> retorn = new ArrayList<Prestec>();
+		Soci SociRetornat = em.find(Soci.class, soci);
+		if(SociRetornat==null){
+			throw new Exception("Soci no trobat");
+		}
+		Query queryTornar = em
+				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND IMPORT_RETARD IS NOT NULL");
+		queryTornar.setParameter(1, soci);
+		retorn = (ArrayList<Prestec>) queryTornar.getResultList();
+		em.close();
+		return retorn;
+	}
 		
 }

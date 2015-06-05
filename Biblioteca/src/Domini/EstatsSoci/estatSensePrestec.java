@@ -8,6 +8,9 @@ public class estatSensePrestec extends estatAbs{
 	@Override
 	public estatAbs demanarPrestec(Soci soci, Exemplar exemplar)
 			throws Exception {
+		if (soci.getDataBaixa() != null){
+			throw new Exception("Aquest soci esta de baixa i no pot fer un prestec.");
+		}
 		return new estatAmbPrestec();
 	}
 

@@ -33,6 +33,9 @@ public class controladorFerPrestec {
 
 	public controladorFerPrestec() {
 		this.biblioteca = biblioteca.getInstancia();
+		bbddPrestec = new BBDDPrestec();
+		bbddSoci = new BBDDSoci();
+		bbddExemplar = new BBDDExemplar();
 	}
 
 	// String soci ï¿½s el seu DNI i String exemplar ï¿½s el REGISTRE
@@ -42,6 +45,45 @@ public class controladorFerPrestec {
 			throw new Exception(
 					"Introdueixi un soci i un exemplar per realitzar el prï¿½stec");
 		}
+			
+		this.comprobarDNI(soci);
+		
+		sociObj = bbddSoci.find(soci);
+		if (sociObj == null) {
+			throw new Exception(
+					"El soci seleccionat no existeix.");
+		}
+		exemplarObj = bbddExemplar.find(Long.parseLong(exemplar));
+		if (exemplarObj == null) {
+			throw new Exception("L'exemplar seleccionat no existeix.");
+		}
+		// if (bbddSoci.potDemanarPrestec(soci, exemplar)
+		if (sociObj.potDemanarPrestec(exemplarObj)) {
+
+			PrestecPK prestecPK = new PrestecPK();
+			prestecPK.setDataPrestec(data_prestec);
+			prestecPK.setSoci(soci);
+
+			prestec = new Prestec();
+			prestec.setId(prestecPK);
+			prestec.setExemplar(exemplarObj);
+			prestec.setSoci(sociObj);
+
+			this.bbddPrestec.afegirPrestec(this.prestec);
+			sociObj.demanarPrestec(exemplarObj);//QUE CONY? Això és el que ha de comprovar si el prèstec és pot fer o no
+			bbddSoci.prestecAfegit(prestec);
+		}
+		return prestec.getDataMaxRetorn();
+	}
+
+	private boolean prestecPermes() throws Exception { //aquesta funcio d'aqui la té que fer el patro estats
+		return sociObj.potDemanarPrestec(this.exemplarObj)
+				&& !bbddSoci.sociTeObra(exemplarObj, sociObj)
+				&& exemplarObj.disponible()
+				&& bbddExemplar.disponible(exemplarObj);
+	}
+	
+	private void comprobarDNI(String soci) throws Exception{
 		String lletra = "TRWAGMYFPDXBNJZSQVHLCKE";
 		if (soci.length() != 9) {
 			for (int i = 0; i < 8; i++) {
@@ -54,41 +96,5 @@ public class controladorFerPrestec {
 			if(soci.charAt(8)!=lletra.charAt(aux))
 				throw new Exception("DNI No Vàlid. No concorda la lletra amb el DNI");
 		}
-		bbddPrestec = new BBDDPrestec();
-		bbddSoci = new BBDDSoci();
-		bbddExemplar = new BBDDExemplar();
-		sociObj = bbddSoci.find(soci);
-		if (sociObj == null) {
-			throw new Exception(
-					"El soci seleccionat no existeix o està de baixa.");
-		}
-		exemplarObj = bbddExemplar.find(Long.parseLong(exemplar));
-		if (exemplarObj == null) {
-			throw new Exception("L'exemplar seleccionat no existeix.");
-		}
-		// if (bbddSoci.potDemanarPrestec(soci, exemplar)
-		if (prestecPermes()) {
-
-			PrestecPK prestecPK = new PrestecPK();
-			prestecPK.setDataPrestec(data_prestec);
-			prestecPK.setSoci(soci);
-
-			prestec = new Prestec();
-			prestec.setId(prestecPK);
-			prestec.setExemplar(exemplarObj);
-			prestec.setSoci(sociObj);
-
-			this.bbddPrestec.afegirPrestec(this.prestec);
-			sociObj.demanarPrestec(exemplarObj);
-			bbddSoci.prestecAfegit(prestec);
-		}
-		return prestec.getDataMaxRetorn();
-	}
-
-	private boolean prestecPermes() throws Exception {
-		return sociObj.potDemanarPrestec()
-				&& !bbddSoci.sociTeObra(exemplarObj, sociObj)
-				&& exemplarObj.disponible()
-				&& bbddExemplar.disponible(exemplarObj);
 	}
 }

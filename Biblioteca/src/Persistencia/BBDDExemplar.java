@@ -26,7 +26,7 @@ public class BBDDExemplar {
 		if( q.getResultList().size()>0){
 			throw new Exception("L'exemplar seleccionat ja està siguent prestat.");
 		}
-		
+		/* Aixòo d'aqui ho fa el objecte exemplar
 		//mirem que el exemplar no estigui de baixa
 		q = em.createNativeQuery("select * from exemplar where registre=? and DATA_BAIXA IS NULL");
 		q.setParameter(1, exemplar.getRegistre());
@@ -36,7 +36,7 @@ public class BBDDExemplar {
 		else{
 			throw new Exception("L'exemplar seleccionat no està disponible");		
 		}
-		
+		*/
 	}
 
 }

@@ -11,7 +11,9 @@ public abstract class estatAbs {
 	
 	public abstract estatAbs pagarPrestec(Soci soci, Exemplar exemplar) throws Exception;
 	
-	public estatAbs sociValid(Soci soci, Exemplar exemplar) throws Exception {
+	public boolean prestecValid(Soci soci, Exemplar exemplar) throws Exception {	
+		
+		
 		if(soci.getDataBaixa()!=null)
 			throw new Exception("Aquest soci està de baixa. No es pot operar amb ell");
 		if (soci.getPrestecsPerPagar()==0) {

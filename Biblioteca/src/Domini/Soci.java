@@ -25,17 +25,26 @@ public class Soci implements Serializable {
 	@Transient
 	private estatAbs estatObj;
 	
-	/**
-	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
-	 */
-	@Transient
-	private int prestecsPerPagar;
+	
+	// S'ha de fer una UNICA list de objectes prestec
+//	/**
+//	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
+//	 */
+//	@Transient
+//	private int prestecsPerPagar;//aix� ha de ser un List
+//	
+//	/**
+//	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
+//	 */
+//	@Transient
+//	private int prestecsPerTornar;//aix� ha de ser un List
 	
 	/**
-	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
+	 * Xavi: List dels prestecs actius del Soci (no retornats i pendents de pagar)
 	 */
 	@Transient
-	private int prestecsPerTornar;
+	private ArrayList<Prestec> prestecs;
+	
 	
 	@Id
 	private String dni;
@@ -122,7 +131,7 @@ public class Soci implements Serializable {
 		return this.estat;
 	}
 	
-	public boolean potDemanarPrestec () throws Exception{
+	public boolean potDemanarPrestec (Exemplar exemplar) throws Exception{
 		String estatSoci = estatObj.demanarPrestec(this, exemplar).toString();
 		if(estatSoci.equals("AmbPrestec")){			
 			return true;
@@ -156,30 +165,38 @@ public class Soci implements Serializable {
 		this.estatObj = estatObj.pagarPrestec(this, exemplar);
 		this.estat = estatObj.toString();
 	}
-
-	/**
-	 * @Autor Manu
-	 * @ Mètode afegit per a la gestió d'estat
-	 */
-	public int getPrestecsPerTornar(){
-		return this.prestecsPerTornar;
-	}
-
-	/**
-	 * @Autor Manu
-	 * @ Mètode afegit per a la gestió d'estat
-	 */
-	public int getPrestecsPerPagar(){
-		return this.prestecsPerPagar;
+	
+	public ArrayList<Prestec> getListPrestecs(){
+		return this.prestecs;
 	}
 	
-	public void setPrestecsPerPagar(int i){
-		this.prestecsPerPagar = i;
+	public void setListPrestecs(ArrayList<Prestec> prestecs){
+		this.prestecs = prestecs;
 	}
-	
-	public void setPrestecsPerTornar(int i){
-		this.prestecsPerTornar = i;
-	}
+
+//	/**
+//	 * @Autor Manu
+//	 * @ Mètode afegit per a la gestió d'estat
+//	 */
+//	public int getPrestecsPerTornar(){
+//		return this.prestecsPerTornar;
+//	}
+//
+//	/**
+//	 * @Autor Manu
+//	 * @ Mètode afegit per a la gestió d'estat
+//	 */
+//	public int getPrestecsPerPagar(){
+//		return this.prestecsPerPagar;
+//	}
+//	
+//	public void setPrestecsPerPagar(int i){
+//		this.prestecsPerPagar = i;
+//	}
+//	
+//	public void setPrestecsPerTornar(int i){
+//		this.prestecsPerTornar = i;
+//	}
 
 
 }

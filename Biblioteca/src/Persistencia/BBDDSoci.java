@@ -10,12 +10,18 @@ import javax.persistence.Query;
 import Domini.Exemplar;
 import Domini.Prestec;
 import Domini.Soci;
+import Domini.EstatsSoci.estatAbs;
 import Domini.EstatsSoci.estatAmbPrestec;
 import Domini.EstatsSoci.estatMoros;
 import Domini.EstatsSoci.estatSensePrestec;
 
 public class BBDDSoci {
 
+	private BBDDPrestec bbddPrestec;
+	
+	public BBDDSoci(){
+		this.bbddPrestec = new BBDDPrestec();
+	}
 	public Soci find(String soci) throws Exception {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
 				.createEntityManager();
@@ -26,6 +32,9 @@ public class BBDDSoci {
 		if(retorn.getDataBaixa() != null){ // això ha de controlar que no és puguin declarar socis donats de baixa
 			return null;
 		}
+		retorn.setEstatObj((estatAbs) Class.forName(retorn.getEstatString()).newInstance());
+		
+		/*
 		if (retorn.getEstatString().equals("SensePrestec")) {
 			retorn.setEstatObj(new estatSensePrestec());
 		} else {
@@ -34,19 +43,23 @@ public class BBDDSoci {
 			} else {
 				retorn.setEstatObj(new estatMoros());
 			}
-		}
-		Query queryTornar = em
-				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NULL");
-		queryTornar.setParameter(1, soci);
-		int perTornar = queryTornar.getResultList().size();
+		}*/
 		
-		Query queryPagar = em
-				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NOT NULL AND DATA_PAGAMENT IS NULL");
-		queryPagar.setParameter(1, soci);
-		int perPagar = queryPagar.getResultList().size();
+//		Query queryTornar = em
+//				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NULL");
+//		queryTornar.setParameter(1, soci);
+//		
+//		int perTornar = queryTornar.getResultList().size();
+//		
+//		Query queryPagar = em
+//				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NOT NULL AND DATA_PAGAMENT IS NULL");
+//		queryPagar.setParameter(1, soci);
+//		int perPagar = queryPagar.getResultList().size();
+//		
+//		retorn.setPrestecsPerPagar(perPagar);
+//		retorn.setPrestecsPerTornar(perTornar);
+		retorn.setListPrestecs(this.bbddPrestec.findPrestecsSoci(retorn));
 		
-		retorn.setPrestecsPerPagar(perPagar);
-		retorn.setPrestecsPerTornar(perTornar);
 		em.close();
 		return retorn;
 	}

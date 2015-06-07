@@ -1,6 +1,7 @@
 package Persistencia;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -82,5 +83,37 @@ public class BBDDPrestec {
 		em.close();
 		return retorn;
 	}
+	
+	
+	/**
+	 * @Autor Mauricio
+	 * @ Endarrereix la data max de retorn d'un prestec p el nombre de dies desitjats, comprobant que siguin positius
+	 */
+	public void endarrerirPrestec(Prestec p, int dies)throws Exception{
+		if (dies<1) {
+			throw new Exception("Els dies han de ser superior o iguals a 1");
+		}
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
+		Query query = em
+				.createNativeQuery("UPDATE prestec set DATA_MAX_RETORN=DATA_MAX_RETORN+? where soci=? and exemplar=?");
+		query.setParameter(1, dies);
+		query.setParameter(2, p.getSoci());
+		query.setParameter(3, p.getExemplar());
 		
+	}
+
+	public Prestec getPrestecPerEndarrerir(String obra, Soci objSoci) throws Exception {
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
+		Prestec retorn = new Prestec();
+		Query queryTornarPrestec = em
+				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND exemplar=?");
+		queryTornarPrestec.setParameter(1, objSoci.getDni());
+		queryTornarPrestec.setParameter(2, objSoci.getDni());
+		retorn = (Prestec) queryTornarPrestec.getResultList().get(0);
+		em.close();
+		return retorn;
+	}
+	
 }

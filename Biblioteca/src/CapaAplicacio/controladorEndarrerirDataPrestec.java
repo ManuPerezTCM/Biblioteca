@@ -2,13 +2,16 @@ package CapaAplicacio;
 
 import java.util.ArrayList;
 
+import Domini.Obra;
 import Domini.Prestec;
 import Domini.Soci;
+import Persistencia.BBDDObra;
 import Persistencia.BBDDPrestec;
 import Persistencia.BBDDSoci;
 
 public class controladorEndarrerirDataPrestec {
-	private Soci soci;
+	private Soci objSoci;
+	private Prestec prestecPerEndarrerir;
 	private BBDDSoci bbddsoci=new BBDDSoci();
 	private BBDDPrestec bbddprestec=new BBDDPrestec();
 	
@@ -42,8 +45,8 @@ public class controladorEndarrerirDataPrestec {
 	}
 	
 	public String[]getPrestecsActiusSoci(String soci) throws Exception{
-		this.soci=this.bbddsoci.find(soci);
-		ArrayList<Prestec>llistaPrestecs=this.bbddprestec.findPrestecsSoci(this.soci);
+		this.objSoci=this.bbddsoci.find(soci);
+		ArrayList<Prestec>llistaPrestecs=this.bbddprestec.findPrestecsSoci(this.objSoci);
 		String toReturn[] = new String[llistaPrestecs.size()];
 		for(int i=0;i<llistaPrestecs.size();i++){
 			toReturn[i]=llistaPrestecs.get(i).getExemplar().getObra().getTitol();
@@ -52,11 +55,7 @@ public class controladorEndarrerirDataPrestec {
 	}
 	
 	public void endarrerirPrestec(String obra, int dies)throws Exception{
-		if(dies<1){
-			throw new Exception("Nombre de díes no vàlid. Ha de ser més gran o igual a 1");
-		}
-		/*BBDDObra bbddobra=new BBDDObra();
-		this.*/
+		this.prestecPerEndarrerir=this.bbddprestec.getPrestecPerEndarrerir(obra,this.objSoci);
 	}
 	
 	

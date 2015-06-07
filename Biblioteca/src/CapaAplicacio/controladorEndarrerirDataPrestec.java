@@ -1,10 +1,16 @@
 package CapaAplicacio;
 
+import java.util.ArrayList;
+
+import Domini.Prestec;
 import Domini.Soci;
+import Persistencia.BBDDPrestec;
 import Persistencia.BBDDSoci;
 
 public class controladorEndarrerirDataPrestec {
 	private Soci soci;
+	private BBDDSoci bbddsoci=new BBDDSoci();
+	private BBDDPrestec bbddprestec=new BBDDPrestec();
 	
 	public controladorEndarrerirDataPrestec(){
 		
@@ -33,6 +39,24 @@ public class controladorEndarrerirDataPrestec {
 			if(soci.charAt(8)!=lletra.charAt(aux))
 				throw new Exception("DNI No Vàlid. No concorda la lletra amb el DNI");
 		}
+	}
+	
+	public String[]getPrestecsActiusSoci(String soci) throws Exception{
+		this.soci=this.bbddsoci.find(soci);
+		ArrayList<Prestec>llistaPrestecs=this.bbddprestec.findPrestecsSoci(this.soci);
+		String toReturn[] = new String[llistaPrestecs.size()];
+		for(int i=0;i<llistaPrestecs.size();i++){
+			toReturn[i]=llistaPrestecs.get(i).getExemplar().getObra().getTitol();
+		}
+		return toReturn;
+	}
+	
+	public void endarrerirPrestec(String obra, int dies)throws Exception{
+		if(dies<1){
+			throw new Exception("Nombre de díes no vàlid. Ha de ser més gran o igual a 1");
+		}
+		/*BBDDObra bbddobra=new BBDDObra();
+		this.*/
 	}
 	
 	

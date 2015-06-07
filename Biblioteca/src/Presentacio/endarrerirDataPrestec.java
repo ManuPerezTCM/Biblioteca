@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -17,6 +16,10 @@ import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
 import CapaAplicacio.controladorEndarrerirDataPrestec;
+import java.awt.Color;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import java.awt.List;
 
 public class endarrerirDataPrestec extends JFrame {
 
@@ -28,7 +31,7 @@ public class endarrerirDataPrestec extends JFrame {
 	private JLabel lblTitol;
 	private JButton btnOkSoci;
 	private JLabel lblSeleccionaUnPrestec;
-	private DefaultListModel <String>listPrestecsSoci;
+	private List listPrestecsSoci;
 	private JLabel lblQuantsDies;
 	private JButton btnEndarrerir;
 	/**
@@ -72,13 +75,6 @@ public class endarrerirDataPrestec extends JFrame {
 		lblSeleccionaUnPrestec.setBounds(35, 91, 252, 14);
 		contentPane.add(lblSeleccionaUnPrestec);
 		
-		String[] data = {"one", "two", "three", "four"};
-		listPrestecsSoci = new DefaultListModel();
-		/*listPrestecsSoci.setEnabled(true);
-		listPrestecsSoci.setBounds(45, 194, 104, -58);
-		listPrestecsSoci.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);*/
-		
-		//contentPane.add(listPrestecsSoci);
 		
 		lblQuantsDies = new JLabel("Quants dies?");
 		lblQuantsDies.setEnabled(false);
@@ -96,6 +92,20 @@ public class endarrerirDataPrestec extends JFrame {
 		btnEndarrerir.setBounds(177, 188, 107, 23);
 		contentPane.add(btnEndarrerir);
 		
+		listPrestecsSoci = new List();
+		listPrestecsSoci.setEnabled(false);
+		listPrestecsSoci.setBounds(37, 124, 110, 111);
+		contentPane.add(listPrestecsSoci);
+		
+		/*String[] data = {"one", "two", "three", "four"};
+		listPrestecsSoci = new JList(data);
+		listPrestecsSoci.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		listPrestecsSoci.setBackground(Color.LIGHT_GRAY);
+		listPrestecsSoci.setEnabled(true);
+		listPrestecsSoci.setBounds(45, 194, 104, -58);
+		listPrestecsSoci.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		contentPane.add(listPrestecsSoci);*/
+		
 		btnOkSoci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -104,7 +114,7 @@ public class endarrerirDataPrestec extends JFrame {
 						textFieldIntrodueixSoci.setEnabled(false);
 						btnOkSoci.setEnabled(false);
 						lblSeleccionaUnPrestec.setEnabled(true);
-						//listPrestecsSoci.setEnabled(true);
+						listPrestecsSoci.setEnabled(true);
 						lblQuantsDies.setEnabled(true);
 						textFieldIntrodueixDies.setEnabled(true);
 						btnEndarrerir.setEnabled(true);

@@ -1,8 +1,5 @@
 package Presentacio;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,9 +9,12 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.ListSelectionModel;
 
 import CapaAplicacio.controladorEndarrerirDataPrestec;
 
@@ -23,11 +23,24 @@ public class endarrerirDataPrestec extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldIntrodueixSoci;
 	private JTextField textFieldIntrodueixDies;
+	private JLabel lblIntrodueixUnSoci;
 	private controladorEndarrerirDataPrestec cont;
+	private JLabel lblTitol;
+	private JButton btnOkSoci;
+	private JLabel lblSeleccionaUnPrestec;
+	private DefaultListModel <String>listPrestecsSoci;
+	private JLabel lblQuantsDies;
+	private JButton btnEndarrerir;
 	/**
 	 * Create the frame.
 	 */
+	
 	public endarrerirDataPrestec() {
+		initialize();
+		this.setVisible(true);
+	}
+	
+	private void initialize() {
 		this.cont=new controladorEndarrerirDataPrestec();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -36,13 +49,13 @@ public class endarrerirDataPrestec extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblIntrodueixUnSoci = new JLabel("Introdueix un Soci:");
-		lblIntrodueixUnSoci.setBounds(33, 55, 104, 14);
+		lblIntrodueixUnSoci = new JLabel("Introdueix un Soci:");
+		lblIntrodueixUnSoci.setBounds(10, 55, 127, 14);
 		contentPane.add(lblIntrodueixUnSoci);
 		
-		JLabel lblTitol = new JLabel("Endarrerir data d'un pr\u00E8stec");
+		lblTitol = new JLabel("Endarrerir data d'un pr\u00E8stec");
 		lblTitol.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTitol.setBounds(119, 11, 168, 14);
+		lblTitol.setBounds(119, 11, 267, 14);
 		contentPane.add(lblTitol);
 		
 		textFieldIntrodueixSoci = new JTextField();
@@ -50,35 +63,59 @@ public class endarrerirDataPrestec extends JFrame {
 		contentPane.add(textFieldIntrodueixSoci);
 		textFieldIntrodueixSoci.setColumns(10);
 		
-		JButton btnOkSoci = new JButton("OK");
+		btnOkSoci = new JButton("OK");
 		btnOkSoci.setBounds(297, 51, 89, 23);
 		contentPane.add(btnOkSoci);
 		
-		btnOkSoci.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		
-		JLabel lblSeleccionaUnPrestec = new JLabel("Selecciona un pr\u00E8stec per endarrerir");
-		lblSeleccionaUnPrestec.setBounds(35, 91, 182, 14);
+		lblSeleccionaUnPrestec = new JLabel("Selecciona un pr\u00E8stec per endarrerir");
+		lblSeleccionaUnPrestec.setEnabled(false);
+		lblSeleccionaUnPrestec.setBounds(35, 91, 252, 14);
 		contentPane.add(lblSeleccionaUnPrestec);
 		
-		JList listPrestecsSoci = new JList();
+		String[] data = {"one", "two", "three", "four"};
+		listPrestecsSoci = new DefaultListModel();
+		/*listPrestecsSoci.setEnabled(true);
 		listPrestecsSoci.setBounds(45, 194, 104, -58);
-		contentPane.add(listPrestecsSoci);
+		listPrestecsSoci.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);*/
 		
-		JLabel lblQuantsDies = new JLabel("Quants dies?");
-		lblQuantsDies.setBounds(195, 160, 71, 14);
+		//contentPane.add(listPrestecsSoci);
+		
+		lblQuantsDies = new JLabel("Quants dies?");
+		lblQuantsDies.setEnabled(false);
+		lblQuantsDies.setBounds(177, 160, 89, 14);
 		contentPane.add(lblQuantsDies);
 		
 		textFieldIntrodueixDies = new JTextField();
+		textFieldIntrodueixDies.setEnabled(false);
 		textFieldIntrodueixDies.setBounds(276, 157, 32, 20);
 		contentPane.add(textFieldIntrodueixDies);
 		textFieldIntrodueixDies.setColumns(10);
 		
-		JButton btnEndarrerir = new JButton("Endarrerir");
-		btnEndarrerir.setBounds(195, 188, 89, 23);
+		btnEndarrerir = new JButton("Endarrerir");
+		btnEndarrerir.setEnabled(false);
+		btnEndarrerir.setBounds(177, 188, 107, 23);
 		contentPane.add(btnEndarrerir);
+		
+		btnOkSoci.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(cont.SociValid(textFieldIntrodueixSoci.getText())){
+						lblIntrodueixUnSoci.setEnabled(false);
+						textFieldIntrodueixSoci.setEnabled(false);
+						btnOkSoci.setEnabled(false);
+						lblSeleccionaUnPrestec.setEnabled(true);
+						//listPrestecsSoci.setEnabled(true);
+						lblQuantsDies.setEnabled(true);
+						textFieldIntrodueixDies.setEnabled(true);
+						btnEndarrerir.setEnabled(true);
+					}
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(new JFrame(), e1.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		
 	}
 }

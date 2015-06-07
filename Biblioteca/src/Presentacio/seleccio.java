@@ -41,12 +41,14 @@ public class seleccio extends JFrame {
 		JButton btnTornarPrstec = new JButton("Tornar Pr\u00E9stec");
 		btnTornarPrstec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 
 		JButton btnEndarrerirPrstec = new JButton("Endarrerir Pr\u00E9stec");
 		btnEndarrerirPrstec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				endarrerirDataPrestec();
 			}
 		});
 
@@ -118,6 +120,15 @@ public class seleccio extends JFrame {
 	private void ferPagament(){
 		try {
 			new ferPagament();
+			this.dispose();
+		} catch (Exception e) {
+			tirarError(e.getMessage());
+		}
+	}
+	
+	private void endarrerirDataPrestec(){
+		try {
+			new endarrerirDataPrestec();
 			this.dispose();
 		} catch (Exception e) {
 			tirarError(e.getMessage());

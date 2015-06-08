@@ -1,7 +1,9 @@
 package Domini;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 
 
@@ -29,12 +31,17 @@ public class Biblioteca implements Serializable {
 	
 	private static Biblioteca instancia;
 
-	public Biblioteca() {
-		instancia = this;
+	public Biblioteca() {}
+	
+	public static Biblioteca getInstancia(){		
+		return instancia;
 	}
 	
-	public static Biblioteca getInstancia(){
-			return instancia;
+	public static void setInstancia(Biblioteca biblioteca) throws Exception{
+		if(instancia != null){
+			throw new Exception("Només és pot generar una unica instancia de Biblioteca");
+		}
+		instancia = biblioteca;
 	}
 
 	public String getIdBiblioteca() {

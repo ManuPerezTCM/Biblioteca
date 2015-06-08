@@ -23,6 +23,7 @@ public class controladorLogin {
 			throw new Exception("Error al fer get Instancaia: "+e.getMessage());
 		}
 //		this.connexio = connexio.getInstancia();
+		Biblioteca.setInstancia(bibliotecaBBDD.find());//recuperem la instancia de la BBDD
 	}
 	
 	public void comprovar(String nom, String contrasenya) throws Exception{

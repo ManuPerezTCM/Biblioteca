@@ -22,44 +22,32 @@ public class controladorRetornPrestec {
 	private float deutePrestec;	
 	private Prestec prestec;
 	private Exemplar exemplar;
-	private Biblioteca biblioteca = Biblioteca.getInstancia();
+	private Biblioteca biblioteca;
 	private Date avui;
 	
 	public controladorRetornPrestec(){
 		this.bbddExemplar = new BBDDExemplar();
 		this.bbddPrestec = new BBDDPrestec();
 		this.deutePrestec = 0;
+		biblioteca = Biblioteca.getInstancia();
 	}
 	
 	public void retornDinsTermini(String retorn) throws NumberFormatException, Exception{
 		
 		if(retorn.equals("")){ throw new Exception("Per favor, introdueïxi un ISBN");}
 	
-		exemplar = this.bbddExemplar.find(Long.parseLong(retorn));
-		prestec = this.bbddPrestec.find(exemplar);//retorna el prestec d'aquest exemplar
-		System.out.println("1");
-		if(prestec == null){
-			System.out.println("És NULL");
-		}
-		System.out.println("2");
-		Date dataMaxRetorn = prestec.getDataMaxRetorn();
-		if(null == dataMaxRetorn){
-			System.out.println("És NULL2");
-		}
-		System.out.println("3");
-		avui = new Date();
-		System.out.println("4");
-
-		if(avui.compareTo(dataMaxRetorn) >0){ //prestec fora del termini
-			System.out.println("4.1");
-			 int diferenciaDies = (int) (avui.getTime() - dataMaxRetorn.getTime())/1000/60/60/24;
-				System.out.println("4.2");
-
-		     deutePrestec = (diferenciaDies * Float.parseFloat(biblioteca.getImportPerDiaRetard().toString()));
-		}
-		System.out.println("5");
-
+		exemplar = this.bbddExemplar.find(Long.parseLong(retorn));		
+		if(exemplar == null){throw new Exception("Exemplar no trobat a la BBDD");}
 		
+		prestec = this.bbddPrestec.find(exemplar);//retorna el prestec d'aquest exemplar		
+		if(prestec == null){throw new Exception("Prestec no trobat a la BBDD");}
+		
+		Date dataMaxRetorn = prestec.getDataMaxRetorn();		
+		avui = new Date();
+		if(avui.compareTo(dataMaxRetorn) >0){ //prestec fora del termini
+			 int diferenciaDies = (int) (avui.getTime() - dataMaxRetorn.getTime())/1000/60/60/24;				
+		     deutePrestec = (diferenciaDies * Float.parseFloat(biblioteca.getImportPerDiaRetard().toString()));
+		}		
 	}
 	
 	public void confirmarRetorn() throws Exception{
@@ -69,6 +57,7 @@ public class controladorRetornPrestec {
 		if(this.deutePrestec > 0){
 			prestec.setImportRetard(BigDecimal.valueOf(this.deutePrestec));
 		}
+		prestec.getSoci().tornarPrestec(exemplar);
 		prestec.setDataRealRetorn(avui);
 		this.bbddPrestec.retornarPrestec(this.prestec);
 	}

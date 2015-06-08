@@ -51,7 +51,6 @@ public class ferPagament extends JFrame {
 		textFieldSoci = new JTextField();
 		textFieldSoci.setColumns(10);
 	
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		JLabel lblSeleccionaElPrstec = new JLabel("Selecciona el pr\u00E9stec a pagar:");
 		
@@ -61,7 +60,7 @@ public class ferPagament extends JFrame {
 		
 		list = new JList();
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {

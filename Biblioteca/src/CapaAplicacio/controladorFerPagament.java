@@ -18,4 +18,8 @@ public class controladorFerPagament {
 	public ArrayList<Prestec> getPrestecsPerPagar(String soci) throws Exception{
 		return prestecBBDD.findPrestecsPerPagar(soci);
 	}
+
+	public void pagarPrestec(Prestec prestec) {
+		prestecBBDD.pagarPrestec(prestec);
+	}
 }

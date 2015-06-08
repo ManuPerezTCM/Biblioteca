@@ -30,6 +30,8 @@ public class ferPagament extends JFrame {
 	private JList list;
 	private controladorFerPagament controladorFerPagament;	
 	private DefaultListModel model;
+	private ArrayList<Prestec> perPagar;
+	private JLabel lblImport;
 	
 	public ferPagament() {
 		try {
@@ -56,7 +58,7 @@ public class ferPagament extends JFrame {
 		
 		JLabel lblImportACobrar = new JLabel("Import a cobrar:");
 		
-		JLabel lblImport = new JLabel("");
+		lblImport = new JLabel("");
 		
 		list = new JList();
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -66,10 +68,10 @@ public class ferPagament extends JFrame {
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ArrayList<Prestec> perPagar = controladorFerPagament.getPrestecsPerPagar(textFieldSoci.getText());
+					perPagar = controladorFerPagament.getPrestecsPerPagar(textFieldSoci.getText());
 					model = new DefaultListModel<Prestec>();
 					for(Prestec prestec: perPagar){
-						model.addElement(prestec);
+						model.addElement(prestec.getExemplar().getObra().getTitol());
 					}
 					list.setModel(model);
 				} catch (Exception e1) {
@@ -78,14 +80,29 @@ public class ferPagament extends JFrame {
 			}
 		});
 		
+		JButton btnMostrarImport = new JButton("Mostrar Import");
+		btnMostrarImport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lblImport.setText(perPagar.get(list.getSelectedIndex()).getImportRetard().toString());
+			}
+		});
+		
 		JButton btnCobrar = new JButton("Cobrar");
+		btnCobrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(list.isSelectionEmpty())
+					tirarError("No has escollit cap préstec per cobrar.");
+				else
+					controladorFerPagament.pagarPrestec(perPagar.get(list.getSelectedIndex()));
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(38, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(49, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lblSoci)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(textFieldSoci, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
@@ -95,13 +112,19 @@ public class ferPagament extends JFrame {
 								.addComponent(list, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(lblSeleccionaElPrstec, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(lblImportACobrar)
-							.addGap(8)))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblImport, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnValidar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnCobrar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(51))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblImportACobrar)
+									.addGap(8))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(btnMostrarImport, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)))))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(lblImport, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnValidar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(btnCobrar))
+					.addGap(27))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -111,19 +134,20 @@ public class ferPagament extends JFrame {
 						.addComponent(btnValidar)
 						.addComponent(textFieldSoci, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblSoci))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
 							.addComponent(lblSeleccionaElPrstec)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(list, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addGap(111)
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblImportACobrar)
 								.addComponent(lblImport, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(btnCobrar)))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnMostrarImport)
+								.addComponent(btnCobrar))))
 					.addGap(39))
 		);
 		contentPane.setLayout(gl_contentPane);

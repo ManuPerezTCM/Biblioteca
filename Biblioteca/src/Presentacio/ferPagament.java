@@ -1,11 +1,11 @@
 package Presentacio;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -29,6 +29,7 @@ public class ferPagament extends JFrame {
 	private JTextField textFieldSoci;
 	private JList list;
 	private controladorFerPagament controladorFerPagament;	
+	private DefaultListModel model;
 	
 	public ferPagament() {
 		try {
@@ -42,7 +43,8 @@ public class ferPagament extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+		this.setVisible(true);
+
 		JLabel lblSoci = new JLabel("Introdueix un Soci: ");
 		lblSoci.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
@@ -57,12 +59,20 @@ public class ferPagament extends JFrame {
 		
 		JLabel lblImport = new JLabel("");
 		
+		list = new JList();
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					ArrayList<Prestec> perPagar = controladorFerPagament.getPrestecsPerPagar(textFieldSoci.getText());
-					list = new JList(perPagar.toArray());
+					model = new DefaultListModel<Prestec>();
+					for(Prestec prestec: perPagar){
+						model.addElement(prestec);
+					}
+					list.setModel(model);
 				} catch (Exception e1) {
 					tirarError(e1.getMessage());
 				}

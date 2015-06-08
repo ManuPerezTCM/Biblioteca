@@ -27,6 +27,7 @@ public class controladorRetornPrestec {
 	
 	public controladorRetornPrestec(){
 		this.bbddExemplar = new BBDDExemplar();
+		this.bbddPrestec = new BBDDPrestec();
 		this.deutePrestec = 0;
 	}
 	

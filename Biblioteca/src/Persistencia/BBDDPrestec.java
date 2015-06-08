@@ -134,12 +134,12 @@ public class BBDDPrestec {
 	public Prestec find(Exemplar exemplar) throws Exception {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
 				.createEntityManager();
-		TypedQuery<Prestec> query = em
-				.createNamedQuery(
+		Query query = em
+				.createNativeQuery(
 						"SELECT * FROM prestec WHERE exemplar=? AND DATA_REAL_RETORN is NULL",
 						Prestec.class);
 		query.setParameter(1, exemplar.getRegistre());
-		Prestec p = query.getSingleResult();
+		Prestec p = (Prestec) query.getSingleResult();
 		em.close();
 		return p;
 	}

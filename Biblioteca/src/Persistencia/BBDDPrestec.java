@@ -152,4 +152,8 @@ public class BBDDPrestec {
 		em.getTransaction().commit();
 	}
 
+	public void pagarPrestec(Prestec prestec) {
+		
+	}
+
 }

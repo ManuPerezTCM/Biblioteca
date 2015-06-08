@@ -99,7 +99,7 @@ public class endarrerirDataPrestec extends JFrame {
 		btnEndarrerir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String obra=listPrestecsSoci.getSelectedItem();
-				if(textFieldIntrodueixDies.getText()==null||obra==null){
+				if(textFieldIntrodueixDies.getText().equals("")||obra==null){
 					JOptionPane.showMessageDialog(new JFrame(), "Selecciona un nombre de dies i una obra, siusplau", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
@@ -136,21 +136,18 @@ public class endarrerirDataPrestec extends JFrame {
 		btnOkSoci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(cont.SociValid(textFieldIntrodueixSoci.getText())){
-						lblIntrodueixUnSoci.setEnabled(false);
-						textFieldIntrodueixSoci.setEnabled(false);
-						btnOkSoci.setEnabled(false);
-						lblSeleccionaUnPrestec.setEnabled(true);
-						listPrestecsSoci.setEnabled(true);
-						lblQuantsDies.setEnabled(true);
-						textFieldIntrodueixDies.setEnabled(true);
-						btnEndarrerir.setEnabled(true);
-						
-						String[]obresSoci=cont.getPrestecsActiusSoci(textFieldIntrodueixSoci.getText());
-						for(int i=0;i<obresSoci.length;i++){
-							listPrestecsSoci.add(obresSoci[i]);
-						}
+					String[]obresSoci=cont.getPrestecsActiusSoci(textFieldIntrodueixSoci.getText());
+					for(int i=0;i<obresSoci.length;i++){
+						listPrestecsSoci.add(obresSoci[i]);
 					}
+					lblIntrodueixUnSoci.setEnabled(false);
+					textFieldIntrodueixSoci.setEnabled(false);
+					btnOkSoci.setEnabled(false);
+					lblSeleccionaUnPrestec.setEnabled(true);
+					listPrestecsSoci.setEnabled(true);
+					lblQuantsDies.setEnabled(true);
+					textFieldIntrodueixDies.setEnabled(true);
+					btnEndarrerir.setEnabled(true);
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(new JFrame(), e1.getMessage(), "Error",
 							JOptionPane.ERROR_MESSAGE);

@@ -42,34 +42,22 @@ public class BBDDPrestec {
 	 * @Autor Xavi, Mauricio @ Retorna tots els prestecs actius del soci (els
 	 *        que no han estat retornats i els que tenen un pagament pendent)
 	 */
-	public ArrayList<Prestec> findPrestecsSoci(Soci retorn) throws Exception {
-		EntityManager em = null;
-		ArrayList<Prestec> prestecs = new ArrayList<Prestec>();
-		try {
-			em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
-
-			TypedQuery<Prestec> exemplars = em
-					.createNamedQuery(
-							"SELECT * FROM prestecs WHERE soci=? AND DATA_REAL_RETORN IS NULL",
-							Prestec.class);
-			exemplars.setParameter(1, retorn.getDni());
-			prestecs.addAll(exemplars.getResultList());
-
-			exemplars = em
-					.createNamedQuery(
-							"SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NOT NULL AND DATA_PAGAMENT IS NULL",
-							Prestec.class);
-			exemplars.setParameter(1, retorn.getDni());
-			prestecs.addAll(exemplars.getResultList());
-
-			return prestecs;
-
-		} catch (Exception e) {
-			throw new Exception("Error al recuperar prestec: " + e.getMessage());
-		} finally {
-			if (em != null)
-				em.close();
+	public ArrayList<Prestec> findPrestecsSoci(String soci) throws Exception {
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
+		ArrayList<Prestec> retorn = new ArrayList<Prestec>();
+		Soci SociRetornat = em.find(Soci.class, soci);
+		if (SociRetornat == null) {
+			throw new Exception("Soci no trobat");
 		}
+		Query queryTornar = em
+				.createNativeQuery(
+						"SELECT * FROM prestec WHERE soci=? AND  DATA_REAL_RETORN IS NULL",
+						Prestec.class);
+		queryTornar.setParameter(1, soci);
+		retorn.addAll(queryTornar.getResultList());
+		em.close();
+		return retorn;
 	}
 
 	/**

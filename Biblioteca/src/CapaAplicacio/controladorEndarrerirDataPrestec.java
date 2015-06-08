@@ -44,8 +44,7 @@ public class controladorEndarrerirDataPrestec {
 	}
 	
 	public String[]getPrestecsActiusSoci(String soci) throws Exception{
-		this.objSoci=this.bbddsoci.find(soci);
-		ArrayList<Prestec>llistaPrestecs=this.bbddprestec.findPrestecsSoci(this.objSoci);
+		ArrayList<Prestec>llistaPrestecs=this.bbddprestec.findPrestecsSoci(soci);
 		String toReturn[] = new String[llistaPrestecs.size()];
 		for(int i=0;i<llistaPrestecs.size();i++){
 			toReturn[i]=llistaPrestecs.get(i).getExemplar().getObra().getTitol();

@@ -139,6 +139,12 @@ public class BBDDPrestec {
 						"SELECT * FROM prestec WHERE exemplar=? AND DATA_REAL_RETORN is NULL",
 						Prestec.class);
 		query.setParameter(1, exemplar.getRegistre());
+		
+//		Query query = em
+//			    .createNativeQuery(
+//			      "SELECT * FROM prestec WHERE exemplar='"+exemplar.getRegistre()+"' AND DATA_REAL_RETORN is NULL",
+//			      Prestec.class);
+		
 		Prestec p = (Prestec) query.getSingleResult();
 		em.close();
 		return p;

@@ -37,15 +37,28 @@ public class controladorRetornPrestec {
 	
 		exemplar = this.bbddExemplar.find(Long.parseLong(retorn));
 		prestec = this.bbddPrestec.find(exemplar);//retorna el prestec d'aquest exemplar
-		
+		System.out.println("1");
+		if(prestec == null){
+			System.out.println("És NULL");
+		}
+		System.out.println("2");
 		Date dataMaxRetorn = prestec.getDataMaxRetorn();
+		if(null == dataMaxRetorn){
+			System.out.println("És NULL2");
+		}
+		System.out.println("3");
 		avui = new Date();
-				
+		System.out.println("4");
+
 		if(avui.compareTo(dataMaxRetorn) >0){ //prestec fora del termini
+			System.out.println("4.1");
 			 int diferenciaDies = (int) (avui.getTime() - dataMaxRetorn.getTime())/1000/60/60/24;
+				System.out.println("4.2");
+
 		     deutePrestec = (diferenciaDies * Float.parseFloat(biblioteca.getImportPerDiaRetard().toString()));
 		}
-		
+		System.out.println("5");
+
 		
 	}
 	

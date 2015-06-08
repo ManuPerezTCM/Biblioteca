@@ -14,59 +14,66 @@ import Domini.Soci;
 
 public class BBDDPrestec {
 
-	
 	public void afegirPrestec(Prestec prestec) throws Exception {
 		EntityManager em = null;
-		try{
+		try {
 			em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
 			em.persist(prestec);
 			tx.commit();
-		}catch (Exception e){
-			throw new Exception("Error al inserir el pr�stec: "+e.getMessage());
-		}finally{
-			if(em != null)
+		} catch (Exception e) {
+			throw new Exception("Error al inserir el pr�stec: "
+					+ e.getMessage());
+		} finally {
+			if (em != null)
 				em.close();
 		}
 	}
-	
-	public Prestec find(String prestec) throws Exception{
+
+	public Prestec find(String prestec) throws Exception {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
 				.createEntityManager();
-		Prestec retorn = em.find(Prestec.class, prestec);		
+		Prestec retorn = em.find(Prestec.class, prestec);
 		return retorn;
 	}
+
 	/**
-	 * @Autor Xavi, Mauricio
-	 * @ Retorna tots els prestecs actius del soci (els que no han estat retornats i els que tenen un pagament pendent)
+	 * @Autor Xavi, Mauricio @ Retorna tots els prestecs actius del soci (els
+	 *        que no han estat retornats i els que tenen un pagament pendent)
 	 */
 	public ArrayList<Prestec> findPrestecsSoci(Soci retorn) throws Exception {
 		EntityManager em = null;
 		ArrayList<Prestec> prestecs = new ArrayList<Prestec>();
-		try{
+		try {
 			em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
-			
-			TypedQuery<Prestec> exemplars = em.createNamedQuery("SELECT * FROM prestecs WHERE soci=? AND DATA_REAL_RETORN IS NULL",Prestec.class);
+
+			TypedQuery<Prestec> exemplars = em
+					.createNamedQuery(
+							"SELECT * FROM prestecs WHERE soci=? AND DATA_REAL_RETORN IS NULL",
+							Prestec.class);
 			exemplars.setParameter(1, retorn.getDni());
 			prestecs.addAll(exemplars.getResultList());
-			
-			exemplars = em.createNamedQuery("SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NOT NULL AND DATA_PAGAMENT IS NULL",Prestec.class);
+
+			exemplars = em
+					.createNamedQuery(
+							"SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NOT NULL AND DATA_PAGAMENT IS NULL",
+							Prestec.class);
 			exemplars.setParameter(1, retorn.getDni());
 			prestecs.addAll(exemplars.getResultList());
-			
+
 			return prestecs;
 
-		}catch (Exception e){
-			throw new Exception("Error al recuperar prestec: "+e.getMessage());
-		}finally{
-			if(em != null)
+		} catch (Exception e) {
+			throw new Exception("Error al recuperar prestec: " + e.getMessage());
+		} finally {
+			if (em != null)
 				em.close();
 		}
 	}
-	
+
 	/**
-	 * @Autor Manu 
+	 * @Autor Manu
 	 * @retun Retorna arraylist de prestecs que estan per pagar.
 	 */
 	public ArrayList<Prestec> findPrestecsPerPagar(String soci)
@@ -78,8 +85,8 @@ public class BBDDPrestec {
 		if (SociRetornat == null) {
 			throw new Exception("Soci no trobat");
 		}
-		TypedQuery<Prestec> queryTornar = em
-				.createNamedQuery(
+		Query queryTornar = em
+				.createNativeQuery(
 						"SELECT * FROM prestec WHERE soci=? AND IMPORT_RETARD IS NOT NULL",
 						Prestec.class);
 		queryTornar.setParameter(1, soci);
@@ -87,14 +94,13 @@ public class BBDDPrestec {
 		em.close();
 		return retorn;
 	}
-	
-	
+
 	/**
-	 * @Autor Mauricio
-	 * @ Endarrereix la data max de retorn d'un prestec p el nombre de dies desitjats, comprobant que siguin positius
+	 * @Autor Mauricio @ Endarrereix la data max de retorn d'un prestec p el
+	 *        nombre de dies desitjats, comprobant que siguin positius
 	 */
-	public void endarrerirPrestec(Prestec p, int dies)throws Exception{
-		if (dies<1) {
+	public void endarrerirPrestec(Prestec p, int dies) throws Exception {
+		if (dies < 1) {
 			throw new Exception("Els dies han de ser superior o iguals a 1");
 		}
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
@@ -104,11 +110,12 @@ public class BBDDPrestec {
 		query.setParameter(1, dies);
 		query.setParameter(2, p.getSoci());
 		query.setParameter(3, p.getExemplar());
-		
+
 	}
 
-	public Prestec getPrestecPerEndarrerir(String obra, Soci objSoci) throws Exception {
-		if(obra==null){
+	public Prestec getPrestecPerEndarrerir(String obra, Soci objSoci)
+			throws Exception {
+		if (obra == null) {
 			throw new Exception("Has de seleccionar una obra");
 		}
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
@@ -123,22 +130,26 @@ public class BBDDPrestec {
 		em.close();
 		return retorn;
 	}
-	
+
 	public Prestec find(Exemplar exemplar) throws Exception {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
 				.createEntityManager();
-		TypedQuery<Prestec> query = em.createNamedQuery("SELECT * FROM prestec WHERE exemplar=? AND DATA_REAL_RETORN is NULL",Prestec.class);
+		TypedQuery<Prestec> query = em
+				.createNamedQuery(
+						"SELECT * FROM prestec WHERE exemplar=? AND DATA_REAL_RETORN is NULL",
+						Prestec.class);
 		query.setParameter(1, exemplar.getRegistre());
 		Prestec p = query.getSingleResult();
 		em.close();
 		return p;
 	}
+
 	public void retornarPrestec(Prestec prestec) throws Exception {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
-				.createEntityManager();		
+				.createEntityManager();
 		em.getTransaction().begin();
 		em.merge(prestec);
-		em.getTransaction().commit();		
+		em.getTransaction().commit();
 	}
-	
+
 }

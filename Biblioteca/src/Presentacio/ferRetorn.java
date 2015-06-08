@@ -24,7 +24,6 @@ public class ferRetorn extends JFrame {
 
 	private controladorRetornPrestec ctlRP;
 	private JPanel contentPane;
-	private JTextField textField;
 	private JTextField JTextExemplar;
 	private JLabel JlblExemplar;
 	private JLabel JlblTitol;
@@ -43,6 +42,7 @@ public class ferRetorn extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,10 +79,10 @@ public class ferRetorn extends JFrame {
 		try {
 			this.ctlRP.retornDinsTermini(this.JTextExemplar.getText());
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Dialog",
+			JOptionPane.showMessageDialog(new JFrame(), e.getMessage() + "NumberException", "Dialog",
 			        JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Dialog",
+			JOptionPane.showMessageDialog(new JFrame(), e.getMessage() + "Exception", "Dialog",
 			        JOptionPane.ERROR_MESSAGE);
 		}
 		new confirmarRetorn(this.ctlRP, this);

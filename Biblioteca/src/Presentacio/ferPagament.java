@@ -93,8 +93,11 @@ public class ferPagament extends JFrame {
 				if(list.isSelectionEmpty())
 					tirarError("No has escollit cap préstec per cobrar.");
 				else
-					controladorFerPagament.pagarPrestec(perPagar.get(list.getSelectedIndex()));
-			}
+					try {
+						controladorFerPagament.pagarPrestec(perPagar.get(list.getSelectedIndex()));
+					} catch (Exception e) {
+						tirarError(e.getMessage());
+					}			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(

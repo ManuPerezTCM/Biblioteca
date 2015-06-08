@@ -19,7 +19,8 @@ public class controladorFerPagament {
 		return prestecBBDD.findPrestecsPerPagar(soci);
 	}
 
-	public void pagarPrestec(Prestec prestec) {
+	public void pagarPrestec(Prestec prestec) throws Exception {
 		prestecBBDD.pagarPrestec(prestec);
+		prestec.getSoci().pagarPrestec(prestec.getExemplar());
 	}
 }

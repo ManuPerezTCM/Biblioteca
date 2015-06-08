@@ -1,6 +1,8 @@
 package Persistencia;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -146,8 +148,23 @@ public class BBDDPrestec {
 		em.getTransaction().commit();
 	}
 
-	public void pagarPrestec(Prestec prestec) {
-		
+	public void pagarPrestec(Prestec prestec) throws Exception {
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
+//		Query queryImport = em
+//				.createNativeQuery("UPDATE prestec set IMPORT_RETARD=0 where soci=? and exemplar=?");
+//		queryImport.setParameter(1, prestec.getSoci().getDni());
+//		queryImport.setParameter(2, prestec.getExemplar().getRegistre());
+//		Query queryData = em
+//				.createNativeQuery("UPDATE prestec set DATA_PAGAMENT=? where soci=? and exemplar=?");
+//		queryData.setParameter(1, new Date());
+//		queryData.setParameter(2, prestec.getSoci().getDni());
+//		queryData.setParameter(1, prestec.getExemplar().getRegistre());
+		prestec.setDataPagament(new Date());
+		prestec.setImportRetard(BigDecimal.valueOf(0));
+		em.getTransaction().begin();
+		em.merge(prestec);
+		em.getTransaction().commit();
 	}
 
 }

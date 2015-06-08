@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import Domini.Exemplar;
 import Domini.Prestec;
 import Domini.Soci;
 
@@ -118,6 +119,23 @@ public class BBDDPrestec {
 		retorn = (Prestec) queryTornarPrestec.getResultList().get(0);
 		em.close();
 		return retorn;
+	}
+	
+	public Prestec find(Exemplar exemplar) throws Exception {
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
+		TypedQuery<Prestec> query = em.createNamedQuery("SELECT * FROM prestec WHERE exemplar=? AND DATA_REAL_RETORN is NULL",Prestec.class);
+		query.setParameter(1, exemplar.getRegistre());
+		Prestec p = query.getSingleResult();
+		em.close();
+		return p;
+	}
+	public void retornarPrestec(Prestec prestec) throws Exception {
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();		
+		em.getTransaction().begin();
+		em.merge(prestec);
+		em.getTransaction().commit();		
 	}
 	
 }

@@ -11,12 +11,12 @@ import Domini.Soci;
 
 public class BBDDExemplar {
 
-	public Exemplar find(Long exemplar) throws Exception {
+	public Exemplar find(long exemplar) throws Exception {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
 		Exemplar retorn = em.find(Exemplar.class, exemplar);
 		em.close();
 		return retorn;
-	}
+}
 	
 	public boolean disponible(Exemplar exemplar) throws Exception{
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();

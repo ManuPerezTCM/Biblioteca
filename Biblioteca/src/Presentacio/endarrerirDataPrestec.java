@@ -16,9 +16,12 @@ import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
 import CapaAplicacio.controladorEndarrerirDataPrestec;
+
 import java.awt.Color;
+
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+
 import java.awt.List;
 
 public class endarrerirDataPrestec extends JFrame {
@@ -87,24 +90,48 @@ public class endarrerirDataPrestec extends JFrame {
 		contentPane.add(textFieldIntrodueixDies);
 		textFieldIntrodueixDies.setColumns(10);
 		
-		btnEndarrerir = new JButton("Endarrerir");
-		btnEndarrerir.setEnabled(false);
-		btnEndarrerir.setBounds(177, 188, 107, 23);
-		contentPane.add(btnEndarrerir);
-		
 		listPrestecsSoci = new List();
 		listPrestecsSoci.setEnabled(false);
 		listPrestecsSoci.setBounds(37, 124, 110, 111);
 		contentPane.add(listPrestecsSoci);
 		
-		/*String[] data = {"one", "two", "three", "four"};
-		listPrestecsSoci = new JList(data);
-		listPrestecsSoci.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		listPrestecsSoci.setBackground(Color.LIGHT_GRAY);
-		listPrestecsSoci.setEnabled(true);
-		listPrestecsSoci.setBounds(45, 194, 104, -58);
-		listPrestecsSoci.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		contentPane.add(listPrestecsSoci);*/
+		btnEndarrerir = new JButton("Endarrerir");
+		btnEndarrerir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String obra=listPrestecsSoci.getSelectedItem();
+				if(textFieldIntrodueixDies.getText()==null||obra==null){
+					JOptionPane.showMessageDialog(new JFrame(), "Selecciona un nombre de dies i una obra, siusplau", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				else{
+					int dies=Integer.parseInt(textFieldIntrodueixDies.getText());
+					try {
+						cont.endarrerirPrestec(obra, dies);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+		btnEndarrerir.setEnabled(false);
+		btnEndarrerir.setBounds(177, 188, 107, 23);
+		contentPane.add(btnEndarrerir);
+		
+		JButton btnEnrere = new JButton("ENRERE");
+		btnEnrere.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new seleccio();
+				dispose();
+			}
+		});
+		btnEnrere.setBounds(319, 228, 89, 23);
+		contentPane.add(btnEnrere);
+		
+		
+		
+		
+		
 		
 		btnOkSoci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,6 +145,11 @@ public class endarrerirDataPrestec extends JFrame {
 						lblQuantsDies.setEnabled(true);
 						textFieldIntrodueixDies.setEnabled(true);
 						btnEndarrerir.setEnabled(true);
+						
+						String[]obresSoci=cont.getPrestecsActiusSoci(textFieldIntrodueixSoci.getText());
+						for(int i=0;i<obresSoci.length;i++){
+							listPrestecsSoci.add(obresSoci[i]);
+						}
 					}
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(new JFrame(), e1.getMessage(), "Error",
@@ -125,6 +157,8 @@ public class endarrerirDataPrestec extends JFrame {
 				}
 			}
 		});
+		
+		
 		
 		
 	}

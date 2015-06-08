@@ -104,6 +104,9 @@ public class BBDDPrestec {
 	}
 
 	public Prestec getPrestecPerEndarrerir(String obra, Soci objSoci) throws Exception {
+		if(obra==null){
+			throw new Exception("Has de seleccionar una obra");
+		}
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
 				.createEntityManager();
 		Prestec retorn = new Prestec();

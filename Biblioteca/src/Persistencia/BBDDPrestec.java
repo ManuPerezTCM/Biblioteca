@@ -108,9 +108,10 @@ public class BBDDPrestec {
 				.createEntityManager();
 		Prestec retorn = new Prestec();
 		Query queryTornarPrestec = em
-				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND exemplar=?");
+				.createNativeQuery("SELECT * FROM prestec join exemplar on prestec.exemplar="
+						+ "exemplar.REGISTRE WHERE prestec.soci=? AND exemplar.obra=?");
 		queryTornarPrestec.setParameter(1, objSoci.getDni());
-		queryTornarPrestec.setParameter(2, objSoci.getDni());
+		queryTornarPrestec.setParameter(2, obra);
 		retorn = (Prestec) queryTornarPrestec.getResultList().get(0);
 		em.close();
 		return retorn;

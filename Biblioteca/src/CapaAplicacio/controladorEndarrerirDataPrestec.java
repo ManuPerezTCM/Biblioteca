@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import Domini.Obra;
 import Domini.Prestec;
 import Domini.Soci;
-import Persistencia.BBDDObra;
 import Persistencia.BBDDPrestec;
 import Persistencia.BBDDSoci;
 
@@ -56,6 +55,7 @@ public class controladorEndarrerirDataPrestec {
 	
 	public void endarrerirPrestec(String obra, int dies)throws Exception{
 		this.prestecPerEndarrerir=this.bbddprestec.getPrestecPerEndarrerir(obra,this.objSoci);
+		this.bbddprestec.endarrerirPrestec(this.prestecPerEndarrerir, dies);
 	}
 	
 	

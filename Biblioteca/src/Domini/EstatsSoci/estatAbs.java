@@ -1,7 +1,5 @@
 package Domini.EstatsSoci;
 
-import java.util.Iterator;
-
 import Domini.Exemplar;
 import Domini.Soci;
 

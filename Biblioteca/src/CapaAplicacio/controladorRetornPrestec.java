@@ -11,23 +11,28 @@ import org.eclipse.persistence.internal.helper.SimpleDatabaseType;
 import Domini.Biblioteca;
 import Domini.Exemplar;
 import Domini.Prestec;
+import Domini.Soci;
 import Persistencia.BBDDExemplar;
 import Persistencia.BBDDPrestec;
+import Persistencia.BBDDSoci;
 
 public class controladorRetornPrestec {
 
 	private BBDDExemplar bbddExemplar;
 	private BBDDPrestec bbddPrestec;
+	private BBDDSoci bbddSoci;
 	
 	private float deutePrestec;	
 	private Prestec prestec;
 	private Exemplar exemplar;
 	private Biblioteca biblioteca;
+	private Soci soci;
 	private Date avui;
 	
 	public controladorRetornPrestec(){
 		this.bbddExemplar = new BBDDExemplar();
 		this.bbddPrestec = new BBDDPrestec();
+		this.bbddSoci = new BBDDSoci();
 		this.deutePrestec = 0;
 		biblioteca = Biblioteca.getInstancia();
 	}
@@ -35,12 +40,21 @@ public class controladorRetornPrestec {
 	public void retornDinsTermini(String retorn) throws NumberFormatException, Exception{
 		
 		if(retorn.equals("")){ throw new Exception("Per favor, introdueïxi un ISBN");}
-	
+		try{
 		exemplar = this.bbddExemplar.find(Long.parseLong(retorn));		
-		if(exemplar == null){throw new Exception("Exemplar no trobat a la BBDD");}
+		}catch(Exception e){
+			throw new Exception("Exemplar no trobat a la BBDD");
+		}
 		
-		prestec = this.bbddPrestec.find(exemplar);//retorna el prestec d'aquest exemplar		
-		if(prestec == null){throw new Exception("Prestec no trobat a la BBDD");}
+		try{
+		prestec = this.bbddPrestec.find(exemplar);//retorna el prestec d'aquest exemplar	
+		}catch(Exception e){
+			throw new Exception("Prestec no trobat a la BBDD");
+		}
+		
+		soci = prestec.getSoci();
+		soci.setPrestecs(bbddPrestec.findPrestecsSoci(soci.getDni()));//carreguem els prestecs de soci
+		
 		
 		Date dataMaxRetorn = prestec.getDataMaxRetorn();		
 		avui = new Date();
@@ -56,10 +70,11 @@ public class controladorRetornPrestec {
 		}
 		if(this.deutePrestec > 0){
 			prestec.setImportRetard(BigDecimal.valueOf(this.deutePrestec));
-		}
-		if(prestec.getSoci() == null){System.out.println("SOCI NULL");}
-		prestec.getSoci().tornarPrestec(exemplar);
+		}						
 		prestec.setDataRealRetorn(avui);
+		soci.actualitzarPrestec(prestec);
+		soci.tornarPrestec(exemplar);
+		this.bbddSoci.actualitzarSoci(soci);
 		this.bbddPrestec.retornarPrestec(prestec);
 	}
 	

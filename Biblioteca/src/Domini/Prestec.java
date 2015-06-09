@@ -113,5 +113,14 @@ public class Prestec implements Serializable {
 	public void setSoci(Soci soci) {
 		this.soci = soci;
 	}
-
+	
+	public boolean equals(Object obj){
+		if(!(obj instanceof Prestec)){return false;}
+		if(this.soci.getDni().equals(((Prestec)obj).getSoci().getDni()) 
+				&& this.exemplar.equals(((Prestec)obj).getExemplar())
+						&& this.id.getDataPrestec().equals(((Prestec)obj).getId().getDataPrestec())){
+			return true;
+		}
+		return false;
+	}
 }

@@ -70,6 +70,15 @@ public class Exemplar implements Serializable {
 	public boolean disponible() {
 		return getDataBaixa()==null;
 	}
+	
+	public boolean equals(Object obj){
+		if(!(obj instanceof Exemplar)){return false;}
+		
+		if(this.obra.equals(((Exemplar) obj).getObra()) && this.registre == ((Exemplar) obj).getRegistre()){
+			return true;
+		}
+		return false;
+	}
 
 	
 

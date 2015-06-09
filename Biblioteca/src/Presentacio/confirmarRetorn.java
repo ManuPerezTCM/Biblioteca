@@ -85,8 +85,11 @@ public class confirmarRetorn extends JFrame {
 		try {
 			this.cltRP.confirmarRetorn();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), e.getMessage()+ " Error", "Dialog",
+			JOptionPane.showMessageDialog(new JFrame(), e.getMessage()+ " ", "Dialog",
 			        JOptionPane.ERROR_MESSAGE);
+			new seleccio();
+			this.cltRP.negarRetorn();
+			this.dispose();
 		}
 		new seleccio();
 		this.pantallaAnterior.dispose();
@@ -95,6 +98,5 @@ public class confirmarRetorn extends JFrame {
 	private void cancelar(){
 		this.cltRP.negarRetorn();
 		this.dispose();
-	}
-
+	}	
 }

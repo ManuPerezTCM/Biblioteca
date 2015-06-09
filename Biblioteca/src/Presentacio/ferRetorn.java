@@ -78,13 +78,14 @@ public class ferRetorn extends JFrame {
 	private void buttonResponse(){
 		try {
 			this.ctlRP.retornDinsTermini(this.JTextExemplar.getText());
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(new JFrame(), e.getMessage() + "NumberException", "Dialog",
+			new confirmarRetorn(this.ctlRP, this);
+		} 
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(new JFrame(), e.getMessage() + " ", "Dialog",
 			        JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), e.getMessage() + "Exception", "Dialog",
-			        JOptionPane.ERROR_MESSAGE);
+			this.ctlRP.negarRetorn();
+			new seleccio();
+			this.dispose();		
 		}
-		new confirmarRetorn(this.ctlRP, this);
 	}
 }

@@ -132,7 +132,8 @@ public class Soci implements Serializable {
 	}
 	
 	public boolean potDemanarPrestec (Exemplar exemplar) throws Exception{
-		String estatSoci = estatObj.demanarPrestec(this, exemplar).toString();
+		estatObj.demanarPrestec(this, exemplar);
+		String estatSoci = estatObj.toString();
 		if(estatSoci.equals("AmbPrestec")){			
 			return true;
 		}
@@ -152,11 +153,22 @@ public class Soci implements Serializable {
 	 * @Autor Manu
 	 * @ Mètode afegit per a la gestió d'estat
 	 */
-	public void tornarPrestec(Exemplar exemplar) throws Exception{
+	public void tornarPrestec(Exemplar exemplar) throws Exception{		
+		if(this.estatObj == null){			
+			this.setEstatObj((estatAbs) Class.forName("Domini.EstatsSoci.estat"+this.estat).newInstance());
+		}
 		this.estatObj = estatObj.tornarPrestec(this, exemplar);
-		this.estat = estatObj.toString();
+		this.estat = estatObj.toString();	
 	}
 	
+	public ArrayList<Prestec> getPrestecs() {
+		return prestecs;
+	}
+
+	public void setPrestecs(ArrayList<Prestec> prestecs) {
+		this.prestecs = prestecs;
+	}
+
 	/**
 	 * @Autor Manu
 	 * @ Mètode afegit per a la gestió d'estat
@@ -165,14 +177,17 @@ public class Soci implements Serializable {
 		this.estatObj = estatObj.pagarPrestec(this, exemplar);
 		this.estat = estatObj.toString();
 	}
-	
-	public ArrayList<Prestec> getListPrestecs(){
-		return this.prestecs;
+
+	public void actualitzarPrestec(Prestec prestec) {
+		for(Prestec p: this.prestecs){
+			if (p.equals(prestec)) {
+				this.prestecs.remove(p);
+				this.prestecs.add(prestec);				
+			}
+		}
+		
 	}
-	
-	public void setListPrestecs(ArrayList<Prestec> prestecs){
-		this.prestecs = prestecs;
-	}
+		
 
 //	/**
 //	 * @Autor Manu

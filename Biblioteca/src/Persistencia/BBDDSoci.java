@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import Domini.Exemplar;
@@ -32,7 +33,7 @@ public class BBDDSoci {
 		if(retorn.getDataBaixa() != null){ // això ha de controlar que no és puguin declarar socis donats de baixa
 			return null;
 		}
-		retorn.setEstatObj((estatAbs) Class.forName(retorn.getEstatString()).newInstance());
+		retorn.setEstatObj((estatAbs) Class.forName("Domini.EstatsSoci.estat"+retorn.getEstatString()).newInstance());
 		/*
 		if (retorn.getEstatString().equals("SensePrestec")) {
 			retorn.setEstatObj(new estatSensePrestec());
@@ -57,7 +58,7 @@ public class BBDDSoci {
 //		
 //		retorn.setPrestecsPerPagar(perPagar);
 //		retorn.setPrestecsPerTornar(perTornar);
-		retorn.setListPrestecs(this.bbddPrestec.findPrestecsSoci(retorn.getDni()));
+		retorn.setPrestecs(this.bbddPrestec.findPrestecsSoci(retorn.getDni()));
 		
 		em.close();
 		return retorn;
@@ -115,6 +116,23 @@ public class BBDDSoci {
 			}
 		}
 		return false;
+	}
+	public void actualitzarSoci(Soci soci) throws Exception {
+		EntityManager em = null;
+		try {
+			em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
+			em.merge(soci);
+			tx.commit();
+		} catch (Exception e) {
+			throw new Exception("Error al inserir el prï¿½stec: "
+					+ e.getMessage());
+		} finally {
+			if (em != null)
+				em.close();
+		}
+		
 	}
 
 }

@@ -1,7 +1,9 @@
 package Domini;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -88,4 +90,11 @@ public class Obra implements Serializable {
 		this.editorial = editorial;
 	}
 
+	public boolean equals(Object obj){
+		if(!(obj instanceof Obra)){return false;}		
+		if(this.isbn.equals(((Obra) obj).getIsbn())){
+			return true;
+		}
+		return false;
+	}
 }

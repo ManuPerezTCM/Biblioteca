@@ -32,9 +32,10 @@ public class confirmarRetorn extends JFrame {
 	 * Create the frame.
 	 */
 	public confirmarRetorn(controladorRetornPrestec cltRP, ferRetorn pantalla) {
-		initialize();
 		this.cltRP = cltRP;
-		pantallaAnterior = pantalla;
+		pantallaAnterior = pantalla;		
+		initialize();
+		this.setVisible(true);
 	}
 	
 	private void initialize(){
@@ -84,7 +85,7 @@ public class confirmarRetorn extends JFrame {
 		try {
 			this.cltRP.confirmarRetorn();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Dialog",
+			JOptionPane.showMessageDialog(new JFrame(), e.getMessage()+ " Error", "Dialog",
 			        JOptionPane.ERROR_MESSAGE);
 		}
 		new seleccio();

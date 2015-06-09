@@ -45,8 +45,8 @@ public class controladorRetornPrestec {
 		Date dataMaxRetorn = prestec.getDataMaxRetorn();		
 		avui = new Date();
 		if(avui.compareTo(dataMaxRetorn) >0){ //prestec fora del termini
-			 int diferenciaDies = (int) (avui.getTime() - dataMaxRetorn.getTime())/1000/60/60/24;				
-		     deutePrestec = (diferenciaDies * Float.parseFloat(biblioteca.getImportPerDiaRetard().toString()));
+			 int diferenciaDies = (int) ((avui.getTime() - dataMaxRetorn.getTime())/1000/60/60/24);		
+			 deutePrestec = (diferenciaDies * Float.parseFloat(biblioteca.getImportPerDiaRetard().toString()));
 		}		
 	}
 	
@@ -57,9 +57,14 @@ public class controladorRetornPrestec {
 		if(this.deutePrestec > 0){
 			prestec.setImportRetard(BigDecimal.valueOf(this.deutePrestec));
 		}
+		System.out.println("2");
+		if(prestec.getSoci() == null){System.out.println("SOCI NULL");}
 		prestec.getSoci().tornarPrestec(exemplar);
+		System.out.println("3");
 		prestec.setDataRealRetorn(avui);
-		this.bbddPrestec.retornarPrestec(this.prestec);
+		System.out.println("4");
+		this.bbddPrestec.retornarPrestec(prestec);
+		System.out.println("5");
 	}
 	
 	public void negarRetorn(){

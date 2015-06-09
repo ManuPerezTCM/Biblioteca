@@ -33,7 +33,6 @@ public class BBDDSoci {
 			return null;
 		}
 		retorn.setEstatObj((estatAbs) Class.forName(retorn.getEstatString()).newInstance());
-		
 		/*
 		if (retorn.getEstatString().equals("SensePrestec")) {
 			retorn.setEstatObj(new estatSensePrestec());
@@ -58,7 +57,7 @@ public class BBDDSoci {
 //		
 //		retorn.setPrestecsPerPagar(perPagar);
 //		retorn.setPrestecsPerTornar(perTornar);
-		retorn.setListPrestecs(this.bbddPrestec.findPrestecsSoci(retorn));
+		retorn.setListPrestecs(this.bbddPrestec.findPrestecsSoci(retorn.getDni()));
 		
 		em.close();
 		return retorn;

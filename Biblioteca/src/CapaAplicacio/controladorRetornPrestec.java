@@ -57,14 +57,10 @@ public class controladorRetornPrestec {
 		if(this.deutePrestec > 0){
 			prestec.setImportRetard(BigDecimal.valueOf(this.deutePrestec));
 		}
-		System.out.println("2");
 		if(prestec.getSoci() == null){System.out.println("SOCI NULL");}
 		prestec.getSoci().tornarPrestec(exemplar);
-		System.out.println("3");
 		prestec.setDataRealRetorn(avui);
-		System.out.println("4");
 		this.bbddPrestec.retornarPrestec(prestec);
-		System.out.println("5");
 	}
 	
 	public void negarRetorn(){

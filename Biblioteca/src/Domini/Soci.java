@@ -31,13 +31,13 @@ public class Soci implements Serializable {
 //	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
 //	 */
 //	@Transient
-//	private int prestecsPerPagar;//aix� ha de ser un List
+//	private int prestecsPerPagar;//aix� ha de ser un List
 //	
 //	/**
 //	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
 //	 */
 //	@Transient
-//	private int prestecsPerTornar;//aix� ha de ser un List
+//	private int prestecsPerTornar;//aix� ha de ser un List
 	
 	/**
 	 * Xavi: List dels prestecs actius del Soci (no retornats i pendents de pagar)
@@ -178,6 +178,9 @@ public class Soci implements Serializable {
 	 * @ Mètode afegit per a la gestió d'estat
 	 */
 	public void pagarPrestec(Exemplar exemplar) throws Exception{
+		if(this.estatObj == null){			
+			this.setEstatObj((estatAbs) Class.forName("Domini.EstatsSoci.estat"+this.estat).newInstance());
+		}
 		this.estatObj = estatObj.pagarPrestec(this, exemplar);
 		this.estat = estatObj.toString();
 	}

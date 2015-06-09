@@ -62,7 +62,7 @@ public class ferPagament extends JFrame {
 		
 		list = new JList();
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+		list.setEnabled(false);
 		
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
@@ -73,6 +73,7 @@ public class ferPagament extends JFrame {
 					for(Prestec prestec: perPagar){
 						model.addElement(prestec.getExemplar().getObra().getTitol());
 					}
+					list.setEnabled(true);
 					list.setModel(model);
 				} catch (Exception e1) {
 					tirarError(e1.getMessage());
@@ -98,6 +99,9 @@ public class ferPagament extends JFrame {
 				else
 					try {
 						controladorFerPagament.pagarPrestec(perPagar.get(list.getSelectedIndex()));
+						JOptionPane.showMessageDialog(new JFrame(), "Préstec cobrat correctament", "Préstec Cobrat",
+								JOptionPane.PLAIN_MESSAGE);
+						list.setEnabled(false);
 					} catch (Exception e) {
 						tirarError(e.getMessage());
 					}			}

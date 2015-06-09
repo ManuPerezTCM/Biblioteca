@@ -7,13 +7,15 @@ import Domini.Soci;
 public class estatAmbPrestec extends estatAbs{
 
 	@Override
-	public estatAbs demanarPrestec(Soci soci, Exemplar exemplar)
+	public estatAbs demanarPrestec(Soci soci, Prestec prestec)
 			throws Exception {
 		if (soci.getDataBaixa() != null){
 			throw new Exception("Aquest soci esta de baixa i no pot fer un prestec.");
 		}
-		if(soci.getPrestecs().size()<3)
+		if(soci.getPrestecs().size()<3){
+			soci.afegirPrestec(prestec);
 			return new estatAmbPrestec();
+		}
 		else
 			throw new Exception("Aquest soci ja te el limit de prestecs.");
 	}

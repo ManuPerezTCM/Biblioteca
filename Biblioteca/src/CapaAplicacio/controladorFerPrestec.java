@@ -76,12 +76,12 @@ public class controladorFerPrestec {
 		return prestec.getDataMaxRetorn();
 	}
 
-	private boolean prestecPermes() throws Exception { //aquesta funcio d'aqui la té que fer el patro estats
+	/*private boolean prestecPermes() throws Exception { //aquesta funcio d'aqui la té que fer el patro estats
 		return sociObj.potDemanarPrestec(this.exemplarObj)
 				&& !bbddSoci.sociTeObra(exemplarObj, sociObj)
 				&& exemplarObj.disponible()
 				&& bbddExemplar.disponible(exemplarObj);
-	}
+	}*/
 	
 	private void comprobarDNI(String soci) throws Exception{
 		String lletra = "TRWAGMYFPDXBNJZSQVHLCKE";

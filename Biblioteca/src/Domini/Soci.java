@@ -131,7 +131,7 @@ public class Soci implements Serializable {
 		return this.estat;
 	}
 	
-	public boolean potDemanarPrestec (Exemplar exemplar) throws Exception{
+	/*public boolean potDemanarPrestec (Exemplar exemplar) throws Exception{
 		estatObj.demanarPrestec(this, exemplar);
 		String estatSoci = estatObj.toString();
 		if(estatSoci.equals("AmbPrestec")){			
@@ -144,7 +144,7 @@ public class Soci implements Serializable {
 	 * @Autor Manu
 	 * @ Mètode afegit per a la gestió d'estat
 	 */
-	public void demanarPrestec(Exemplar exemplar) throws Exception{
+	/*public void demanarPrestec(Exemplar exemplar) throws Exception{
 		this.estatObj = estatObj.demanarPrestec(this, exemplar);
 		this.estat = estatObj.toString();
 	}
@@ -163,6 +163,10 @@ public class Soci implements Serializable {
 	
 	public ArrayList<Prestec> getPrestecs() {
 		return prestecs;
+	}
+	
+	public void afegirPrestec(Prestec p){
+		this.prestecs.add(p);
 	}
 
 	public void setPrestecs(ArrayList<Prestec> prestecs) {

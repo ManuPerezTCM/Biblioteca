@@ -16,9 +16,9 @@ public class BBDDExemplar {
 		Exemplar retorn = em.find(Exemplar.class, exemplar);
 		em.close();
 		return retorn;
-}
+	}
 	
-	public boolean disponible(Exemplar exemplar) throws Exception{
+	/*public boolean disponible(Exemplar exemplar) throws Exception{
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();
 		//mirem que no hi hagi cap prestec fet amb aquest exemplar
 		Query q = em.createNativeQuery("select * from prestec where exemplar=? and DATA_REAL_RETORN IS NULL");
@@ -37,6 +37,6 @@ public class BBDDExemplar {
 			throw new Exception("L'exemplar seleccionat no està disponible");		
 		}
 		*/
-	}
+
 
 }

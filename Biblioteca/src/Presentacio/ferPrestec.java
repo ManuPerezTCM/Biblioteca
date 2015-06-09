@@ -88,6 +88,8 @@ public class ferPrestec extends JFrame{
 		JButton btnEnrere = new JButton("ENRERE");
 		btnEnrere.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				new seleccio();
+				dispose();
 			}
 		});
 		btnEnrere.setBounds(229, 194, 114, 23);

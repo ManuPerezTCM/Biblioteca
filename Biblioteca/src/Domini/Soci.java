@@ -165,8 +165,12 @@ public class Soci implements Serializable {
 		return prestecs;
 	}
 	
-	public void afegirPrestec(Prestec p){
-		this.prestecs.add(p);
+	public void afegirPrestec(Exemplar exemplar) throws Exception{
+		if(this.estatObj == null){			
+			this.setEstatObj((estatAbs) Class.forName("Domini.EstatsSoci.estat"+this.estat).newInstance());
+		}
+		this.estatObj = estatObj.demanarPrestec(this, exemplar);
+		this.estat = estatObj.toString();	
 	}
 
 	public void setPrestecs(ArrayList<Prestec> prestecs) {

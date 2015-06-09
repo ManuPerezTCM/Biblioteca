@@ -98,14 +98,14 @@ public class BBDDPrestec {
 		Query query = em
 				.createNativeQuery("UPDATE prestec set DATA_MAX_RETORN=DATA_MAX_RETORN+? where soci=? and exemplar=?");
 		query.setParameter(1, dies);
-		query.setParameter(2, p.getSoci());
-		query.setParameter(3, p.getExemplar());
+		query.setParameter(2, p.getSoci().getDni());
+		query.setParameter(3, p.getExemplar().getRegistre());
 
 	}
 
-	public Prestec getPrestecPerEndarrerir(String obra, Soci objSoci)
+	public Prestec getPrestecPerEndarrerir(String obra, String dniSoci)
 			throws Exception {
-		if (obra == null) {
+		/*if (obra == null) {
 			throw new Exception("Has de seleccionar una obra");
 		}
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
@@ -113,10 +113,23 @@ public class BBDDPrestec {
 		Prestec retorn = new Prestec();
 		Query queryTornarPrestec = em
 				.createNativeQuery("SELECT * FROM prestec join exemplar on prestec.exemplar="
-						+ "exemplar.REGISTRE WHERE prestec.soci=? AND exemplar.obra=?");
+						+ "exemplar.REGISTRE join obra on exemplar.obra=obra.isbn WHERE prestec.soci=? AND obra.titol=?");
 		queryTornarPrestec.setParameter(1, objSoci.getDni());
 		queryTornarPrestec.setParameter(2, obra);
 		retorn = (Prestec) queryTornarPrestec.getResultList().get(0);
+		em.close();
+		return retorn;*/
+		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
+				.createEntityManager();
+		Prestec retorn = new Prestec();
+		Query queryTornar = em
+				.createNativeQuery(
+						"SELECT * FROM prestec join exemplar on prestec.exemplar="
+								+ "exemplar.REGISTRE join obra on exemplar.obra=obra.isbn WHERE prestec.soci=? AND obra.titol=?",
+						Prestec.class);
+		queryTornar.setParameter(1, dniSoci);
+		queryTornar.setParameter(2, obra);
+		retorn=(Prestec) queryTornar.getResultList().get(0);
 		em.close();
 		return retorn;
 	}

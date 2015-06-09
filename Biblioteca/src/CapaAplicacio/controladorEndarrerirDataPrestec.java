@@ -9,8 +9,8 @@ import Persistencia.BBDDPrestec;
 import Persistencia.BBDDSoci;
 
 public class controladorEndarrerirDataPrestec {
-	private Soci objSoci;
 	private Prestec prestecPerEndarrerir;
+	private String dniSoci;
 	private BBDDSoci bbddsoci=new BBDDSoci();
 	private BBDDPrestec bbddprestec=new BBDDPrestec();
 	
@@ -18,7 +18,7 @@ public class controladorEndarrerirDataPrestec {
 		
 	}
 	
-	public boolean SociValid(String soci) throws Exception{
+	/*public boolean SociValid(String soci) throws Exception{
 		comprobarDNI(soci);
 		BBDDSoci bbddSoci=new BBDDSoci();
 		return bbddSoci.find(soci)!=null;
@@ -41,9 +41,10 @@ public class controladorEndarrerirDataPrestec {
 			if(soci.charAt(8)!=lletra.charAt(aux))
 				throw new Exception("DNI No Vàlid. No concorda la lletra amb el DNI");
 		}
-	}
+	}*/
 	
 	public String[]getPrestecsActiusSoci(String soci) throws Exception{
+		this.dniSoci=soci;
 		ArrayList<Prestec>llistaPrestecs=this.bbddprestec.findPrestecsSoci(soci);
 		String toReturn[] = new String[llistaPrestecs.size()];
 		for(int i=0;i<llistaPrestecs.size();i++){
@@ -53,8 +54,10 @@ public class controladorEndarrerirDataPrestec {
 	}
 	
 	public void endarrerirPrestec(String obra, int dies)throws Exception{
-		this.prestecPerEndarrerir=this.bbddprestec.getPrestecPerEndarrerir(obra,this.objSoci);
+		this.prestecPerEndarrerir=this.bbddprestec.getPrestecPerEndarrerir(obra,this.dniSoci);
+		System.out.println(prestecPerEndarrerir.getSoci().getDni());
 		this.bbddprestec.endarrerirPrestec(this.prestecPerEndarrerir, dies);
+		System.out.println(3);
 	}
 	
 	

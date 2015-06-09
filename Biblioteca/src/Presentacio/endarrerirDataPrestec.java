@@ -75,7 +75,7 @@ public class endarrerirDataPrestec extends JFrame {
 		
 		lblSeleccionaUnPrestec = new JLabel("Selecciona un pr\u00E8stec per endarrerir");
 		lblSeleccionaUnPrestec.setEnabled(false);
-		lblSeleccionaUnPrestec.setBounds(35, 91, 252, 14);
+		lblSeleccionaUnPrestec.setBounds(10, 91, 252, 14);
 		contentPane.add(lblSeleccionaUnPrestec);
 		
 		
@@ -92,7 +92,7 @@ public class endarrerirDataPrestec extends JFrame {
 		
 		listPrestecsSoci = new List();
 		listPrestecsSoci.setEnabled(false);
-		listPrestecsSoci.setBounds(37, 124, 110, 111);
+		listPrestecsSoci.setBounds(10, 111, 145, 111);
 		contentPane.add(listPrestecsSoci);
 		
 		btnEndarrerir = new JButton("Endarrerir");

@@ -18,6 +18,7 @@ import Domini.Soci;
 public class BBDDPrestec {
 
 	public void afegirPrestec(Prestec prestec) throws Exception {
+		System.out.println(prestec.getSoci().getDni());
 		EntityManager em = null;
 		try {
 			em = ConnexioJPA.getInstancia().getFactoria().createEntityManager();

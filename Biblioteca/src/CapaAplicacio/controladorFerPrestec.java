@@ -68,9 +68,16 @@ public class controladorFerPrestec {
 			prestec.setId(prestecPK);
 			prestec.setExemplar(exemplarObj);
 			prestec.setSoci(sociObj);
-
-			this.bbddPrestec.afegirPrestec(this.prestec);
+			
+			Calendar c = Calendar.getInstance(); 
+			c.setTime(prestec.getId().getDataPrestec()); 
+			c.add(Calendar.DATE, 5);
+			prestec.setDataMaxRetorn(c.getTime());
+			
+			this.bbddPrestec.afegirPrestec(prestec);
+			System.out.println(3);
 			bbddSoci.prestecAfegit(prestec);
+			System.out.println(4);
 		//}
 		return prestec.getDataMaxRetorn();
 	}

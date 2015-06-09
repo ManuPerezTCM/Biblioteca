@@ -83,6 +83,9 @@ public class ferPagament extends JFrame {
 		JButton btnMostrarImport = new JButton("Mostrar Import");
 		btnMostrarImport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(list.isSelectionEmpty())
+					tirarError("No has escollit cap préstec per mostrar.");
+				else
 				lblImport.setText(perPagar.get(list.getSelectedIndex()).getImportRetard().toString());
 			}
 		});
@@ -99,34 +102,44 @@ public class ferPagament extends JFrame {
 						tirarError(e.getMessage());
 					}			}
 		});
+		
+		JButton btnEnrere = new JButton("Enrere");
+		btnEnrere.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tornarEnrere();
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(49, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblSoci)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(textFieldSoci, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-							.addGap(18))
+					.addContainerGap(71, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnEnrere)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(list, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblSeleccionaElPrstec, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblSoci)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(textFieldSoci, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+									.addGap(18))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(list, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lblSeleccionaElPrstec, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(lblImportACobrar)
+											.addGap(8))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(btnMostrarImport, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.RELATED)))))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblImportACobrar)
-									.addGap(8))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(btnMostrarImport, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)))))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(lblImport, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnValidar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addComponent(btnCobrar))
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(lblImport, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnValidar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addComponent(btnCobrar))))
 					.addGap(27))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -137,7 +150,7 @@ public class ferPagament extends JFrame {
 						.addComponent(btnValidar)
 						.addComponent(textFieldSoci, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblSoci))
-					.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lblSeleccionaElPrstec)
@@ -151,7 +164,9 @@ public class ferPagament extends JFrame {
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnMostrarImport)
 								.addComponent(btnCobrar))))
-					.addGap(39))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnEnrere)
+					.addGap(10))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
@@ -159,5 +174,10 @@ public class ferPagament extends JFrame {
 	private void tirarError(String message) {
 		JOptionPane.showMessageDialog(new JFrame(), message, "Error",
 				JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private void tornarEnrere(){
+		this.dispose();
+		new seleccio();
 	}
 }

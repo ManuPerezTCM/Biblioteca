@@ -79,7 +79,7 @@ public class BBDDPrestec {
 		}
 		Query queryTornar = em
 				.createNativeQuery(
-						"SELECT * FROM prestec WHERE soci=? AND IMPORT_RETARD IS NOT NULL",
+						"SELECT * FROM prestec WHERE soci=? AND IMPORT_RETARD IS NOT NULL AND DATA_PAGAMENT IS NULL",
 						Prestec.class);
 		queryTornar.setParameter(1, soci);
 		retorn.addAll(queryTornar.getResultList());
@@ -165,7 +165,7 @@ public class BBDDPrestec {
 //		queryData.setParameter(2, prestec.getSoci().getDni());
 //		queryData.setParameter(1, prestec.getExemplar().getRegistre());
 		prestec.setDataPagament(new Date());
-		prestec.setImportRetard(BigDecimal.valueOf(0));
+//		prestec.setImportRetard(BigDecimal.valueOf(0));
 		em.getTransaction().begin();
 		em.merge(prestec);
 		em.getTransaction().commit();

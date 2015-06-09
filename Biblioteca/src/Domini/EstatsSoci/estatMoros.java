@@ -7,7 +7,7 @@ import Domini.Soci;
 public class estatMoros extends estatAbs {
 
 	@Override
-	public estatAbs demanarPrestec(Soci soci, Prestec prestec)
+	public estatAbs demanarPrestec(Soci soci, Exemplar exemplar)
 			throws Exception {
 		throw new Exception(
 				"Aquest soci no pot demanar préstecs perquè és un morós.");
@@ -34,7 +34,12 @@ public class estatMoros extends estatAbs {
 				contadorPrestecsPerPagar++;
 			}
 		}
-		soci.pagarPrestec(exemplar);
+		for(Prestec p: soci.getPrestecs()){
+			if (p.getExemplar().equals(exemplar)) {
+				soci.getPrestecs().remove(p);
+				return this;
+			}
+		}
 		if(contadorPrestecsPerPagar>1){
 			return new estatMoros();
 		}

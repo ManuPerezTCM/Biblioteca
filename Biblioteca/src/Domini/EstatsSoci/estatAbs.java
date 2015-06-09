@@ -6,7 +6,7 @@ import Domini.Soci;
 
 public abstract class estatAbs {
 
-	public abstract estatAbs demanarPrestec(Soci soci, Prestec prestec) throws Exception;
+	public abstract estatAbs demanarPrestec(Soci soci, Exemplar exemplar) throws Exception;
 	
 	public abstract estatAbs tornarPrestec(Soci soci, Exemplar exemplar) throws Exception;
 	

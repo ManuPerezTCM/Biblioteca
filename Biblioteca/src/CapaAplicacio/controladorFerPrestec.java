@@ -58,10 +58,10 @@ public class controladorFerPrestec {
 			throw new Exception("L'exemplar seleccionat no existeix.");
 		}
 		// if (bbddSoci.potDemanarPrestec(soci, exemplar)
-		if (sociObj.potDemanarPrestec(exemplarObj)) {
-
+		//if (sociObj.potDemanarPrestec(exemplarObj)) {
+		this.sociObj.getEstatObj().demanarPrestec(sociObj, exemplarObj);
 			PrestecPK prestecPK = new PrestecPK();
-			prestecPK.setDataPrestec(data_prestec);
+			prestecPK.setDataPrestec(new Date());
 			prestecPK.setSoci(soci);
 
 			prestec = new Prestec();
@@ -70,9 +70,8 @@ public class controladorFerPrestec {
 			prestec.setSoci(sociObj);
 
 			this.bbddPrestec.afegirPrestec(this.prestec);
-			sociObj.demanarPrestec(exemplarObj);//QUE CONY? Això és el que ha de comprovar si el prèstec és pot fer o no
 			bbddSoci.prestecAfegit(prestec);
-		}
+		//}
 		return prestec.getDataMaxRetorn();
 	}
 

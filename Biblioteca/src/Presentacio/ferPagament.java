@@ -22,17 +22,19 @@ import javax.swing.border.EmptyBorder;
 import CapaAplicacio.controladorFerPagament;
 import Domini.Prestec;
 
-
 public class ferPagament extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldSoci;
 	private JList list;
-	private controladorFerPagament controladorFerPagament;	
+	private controladorFerPagament controladorFerPagament;
 	private DefaultListModel model;
 	private ArrayList<Prestec> perPagar;
 	private JLabel lblImport;
-	
+	private JButton btnEnrere;
+	private JButton btnMostrarImport;
+	private JButton btnCobrar;
+
 	public ferPagament() {
 		try {
 			controladorFerPagament = new controladorFerPagament();
@@ -49,129 +51,242 @@ public class ferPagament extends JFrame {
 
 		JLabel lblSoci = new JLabel("Introdueix un Soci: ");
 		lblSoci.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		
+
 		textFieldSoci = new JTextField();
 		textFieldSoci.setColumns(10);
-	
-		
-		JLabel lblSeleccionaElPrstec = new JLabel("Selecciona el pr\u00E9stec a pagar:");
-		
+
+		JLabel lblSeleccionaElPrstec = new JLabel(
+				"Selecciona el pr\u00E9stec a pagar:");
+
 		JLabel lblImportACobrar = new JLabel("Import a cobrar:");
-		
+
 		lblImport = new JLabel("");
-		
+
 		list = new JList();
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setEnabled(false);
-		
+
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					perPagar = controladorFerPagament.getPrestecsPerPagar(textFieldSoci.getText());
+					perPagar = controladorFerPagament
+							.getPrestecsPerPagar(textFieldSoci.getText());
 					model = new DefaultListModel<Prestec>();
-					for(Prestec prestec: perPagar){
-						model.addElement(prestec.getExemplar().getObra().getTitol());
+					for (Prestec prestec : perPagar) {
+						model.addElement(prestec.getExemplar().getObra()
+								.getTitol());
 					}
-					list.setEnabled(true);
+					mostrar();
 					list.setModel(model);
 				} catch (Exception e1) {
 					tirarError(e1.getMessage());
 				}
 			}
 		});
-		
-		JButton btnMostrarImport = new JButton("Mostrar Import");
+
+		btnMostrarImport = new JButton("Mostrar Import");
+		btnMostrarImport.setEnabled(false);
 		btnMostrarImport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(list.isSelectionEmpty())
+				if (list.isSelectionEmpty())
 					tirarError("No has escollit cap préstec per mostrar.");
 				else
-				lblImport.setText(perPagar.get(list.getSelectedIndex()).getImportRetard().toString());
+					lblImport.setText(perPagar.get(list.getSelectedIndex())
+							.getImportRetard().toString());
 			}
 		});
-		
-		JButton btnCobrar = new JButton("Cobrar");
+
+		btnCobrar = new JButton("Cobrar");
+		btnCobrar.setEnabled(false);
 		btnCobrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(list.isSelectionEmpty())
+				if (list.isSelectionEmpty())
 					tirarError("No has escollit cap préstec per cobrar.");
 				else
 					try {
-						controladorFerPagament.pagarPrestec(perPagar.get(list.getSelectedIndex()));
-						JOptionPane.showMessageDialog(new JFrame(), "Préstec cobrat correctament", "Préstec Cobrat",
-								JOptionPane.PLAIN_MESSAGE);
-						list.setEnabled(false);
+						desactivar();
+						controladorFerPagament.pagarPrestec(perPagar.get(list
+								.getSelectedIndex()));
+						JOptionPane.showMessageDialog(new JFrame(),
+								"Préstec cobrat correctament",
+								"Préstec Cobrat", JOptionPane.PLAIN_MESSAGE);
 					} catch (Exception e) {
 						tirarError(e.getMessage());
-					}			}
+					}
+			}
 		});
-		
-		JButton btnEnrere = new JButton("Enrere");
+
+		btnEnrere = new JButton("Enrere");
 		btnEnrere.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tornarEnrere();
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(71, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnEnrere)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblSoci)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(textFieldSoci, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-									.addGap(18))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(list, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(lblSeleccionaElPrstec, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(lblImportACobrar)
-											.addGap(8))
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(btnMostrarImport, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addPreferredGap(ComponentPlacement.RELATED)))))
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(lblImport, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnValidar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(btnCobrar))))
-					.addGap(27))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(24)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnValidar)
-						.addComponent(textFieldSoci, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSoci))
-					.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblSeleccionaElPrstec)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(list, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblImportACobrar)
-								.addComponent(lblImport, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnMostrarImport)
-								.addComponent(btnCobrar))))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnEnrere)
-					.addGap(10))
-		);
+		gl_contentPane
+				.setHorizontalGroup(gl_contentPane
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(
+								gl_contentPane
+										.createSequentialGroup()
+										.addContainerGap(71, Short.MAX_VALUE)
+										.addGroup(
+												gl_contentPane
+														.createParallelGroup(
+																Alignment.TRAILING)
+														.addComponent(btnEnrere)
+														.addGroup(
+																gl_contentPane
+																		.createSequentialGroup()
+																		.addGroup(
+																				gl_contentPane
+																						.createParallelGroup(
+																								Alignment.TRAILING,
+																								false)
+																						.addGroup(
+																								gl_contentPane
+																										.createSequentialGroup()
+																										.addComponent(
+																												lblSoci)
+																										.addPreferredGap(
+																												ComponentPlacement.UNRELATED)
+																										.addComponent(
+																												textFieldSoci,
+																												GroupLayout.PREFERRED_SIZE,
+																												119,
+																												GroupLayout.PREFERRED_SIZE)
+																										.addGap(18))
+																						.addGroup(
+																								gl_contentPane
+																										.createSequentialGroup()
+																										.addGroup(
+																												gl_contentPane
+																														.createParallelGroup(
+																																Alignment.TRAILING,
+																																false)
+																														.addComponent(
+																																list,
+																																Alignment.LEADING,
+																																GroupLayout.DEFAULT_SIZE,
+																																GroupLayout.DEFAULT_SIZE,
+																																Short.MAX_VALUE)
+																														.addComponent(
+																																lblSeleccionaElPrstec,
+																																Alignment.LEADING,
+																																GroupLayout.DEFAULT_SIZE,
+																																GroupLayout.DEFAULT_SIZE,
+																																Short.MAX_VALUE))
+																										.addPreferredGap(
+																												ComponentPlacement.RELATED,
+																												GroupLayout.DEFAULT_SIZE,
+																												Short.MAX_VALUE)
+																										.addGroup(
+																												gl_contentPane
+																														.createParallelGroup(
+																																Alignment.LEADING)
+																														.addGroup(
+																																gl_contentPane
+																																		.createSequentialGroup()
+																																		.addComponent(
+																																				lblImportACobrar)
+																																		.addGap(8))
+																														.addGroup(
+																																gl_contentPane
+																																		.createSequentialGroup()
+																																		.addComponent(
+																																				btnMostrarImport,
+																																				GroupLayout.DEFAULT_SIZE,
+																																				GroupLayout.DEFAULT_SIZE,
+																																				Short.MAX_VALUE)
+																																		.addPreferredGap(
+																																				ComponentPlacement.RELATED)))))
+																		.addGroup(
+																				gl_contentPane
+																						.createParallelGroup(
+																								Alignment.LEADING)
+																						.addGroup(
+																								gl_contentPane
+																										.createParallelGroup(
+																												Alignment.LEADING,
+																												false)
+																										.addComponent(
+																												lblImport,
+																												GroupLayout.DEFAULT_SIZE,
+																												GroupLayout.DEFAULT_SIZE,
+																												Short.MAX_VALUE)
+																										.addComponent(
+																												btnValidar,
+																												GroupLayout.DEFAULT_SIZE,
+																												GroupLayout.DEFAULT_SIZE,
+																												Short.MAX_VALUE))
+																						.addComponent(
+																								btnCobrar))))
+										.addGap(27)));
+		gl_contentPane
+				.setVerticalGroup(gl_contentPane
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								gl_contentPane
+										.createSequentialGroup()
+										.addGap(24)
+										.addGroup(
+												gl_contentPane
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																btnValidar)
+														.addComponent(
+																textFieldSoci,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblSoci))
+										.addPreferredGap(
+												ComponentPlacement.RELATED, 35,
+												Short.MAX_VALUE)
+										.addGroup(
+												gl_contentPane
+														.createParallelGroup(
+																Alignment.TRAILING)
+														.addGroup(
+																gl_contentPane
+																		.createSequentialGroup()
+																		.addComponent(
+																				lblSeleccionaElPrstec)
+																		.addPreferredGap(
+																				ComponentPlacement.UNRELATED)
+																		.addComponent(
+																				list,
+																				GroupLayout.PREFERRED_SIZE,
+																				105,
+																				GroupLayout.PREFERRED_SIZE))
+														.addGroup(
+																gl_contentPane
+																		.createSequentialGroup()
+																		.addGroup(
+																				gl_contentPane
+																						.createParallelGroup(
+																								Alignment.TRAILING)
+																						.addComponent(
+																								lblImportACobrar)
+																						.addComponent(
+																								lblImport,
+																								GroupLayout.PREFERRED_SIZE,
+																								14,
+																								GroupLayout.PREFERRED_SIZE))
+																		.addGap(18)
+																		.addGroup(
+																				gl_contentPane
+																						.createParallelGroup(
+																								Alignment.BASELINE)
+																						.addComponent(
+																								btnMostrarImport)
+																						.addComponent(
+																								btnCobrar))))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addComponent(btnEnrere).addGap(10)));
 		contentPane.setLayout(gl_contentPane);
 	}
 
@@ -179,9 +294,21 @@ public class ferPagament extends JFrame {
 		JOptionPane.showMessageDialog(new JFrame(), message, "Error",
 				JOptionPane.ERROR_MESSAGE);
 	}
-	
-	private void tornarEnrere(){
+
+	private void tornarEnrere() {
 		this.dispose();
 		new seleccio();
+	}
+
+	private void mostrar() {
+		this.list.setEnabled(true);
+		this.btnCobrar.setEnabled(true);
+		this.btnMostrarImport.setEnabled(true);
+	}
+
+	private void desactivar() {
+		this.list.setEnabled(false);
+		this.btnCobrar.setEnabled(false);
+		this.btnMostrarImport.setEnabled(false);
 	}
 }

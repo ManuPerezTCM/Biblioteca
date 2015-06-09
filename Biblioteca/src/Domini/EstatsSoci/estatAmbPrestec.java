@@ -1,7 +1,11 @@
 package Domini.EstatsSoci;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import Domini.Exemplar;
 import Domini.Prestec;
+import Domini.PrestecPK;
 import Domini.Soci;
 
 public class estatAmbPrestec extends estatAbs{
@@ -18,6 +22,28 @@ public class estatAmbPrestec extends estatAbs{
 					throw new Exception("Aquest soci ja té aquesta mateixa obra en prèstec");
 				}
 			}
+			
+			
+			
+			PrestecPK prestecPK = new PrestecPK();
+			prestecPK.setDataPrestec(new Date());
+			prestecPK.setSoci(soci.getDni());
+
+			Prestec prestec = new Prestec();
+			prestec.setId(prestecPK);
+			prestec.setExemplar(exemplar);
+			prestec.setSoci(soci);
+				
+			Calendar c = Calendar.getInstance(); 
+			c.setTime(prestec.getId().getDataPrestec()); 
+			c.add(Calendar.DATE, 5);
+			prestec.setDataMaxRetorn(c.getTime());
+			
+			
+			soci.getPrestecs().add(prestec);
+			
+			
+			
 			return new estatAmbPrestec();
 		}
 		else

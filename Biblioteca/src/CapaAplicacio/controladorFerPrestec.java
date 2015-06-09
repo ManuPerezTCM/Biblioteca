@@ -57,30 +57,17 @@ public class controladorFerPrestec {
 		if (exemplarObj == null) {
 			throw new Exception("L'exemplar seleccionat no existeix.");
 		}
+		this.bbddExemplar.disponible(exemplarObj);
 		sociObj.afegirPrestec(exemplarObj);
 		this.bbddSoci.actualitzarSoci(sociObj);
-		this.bbddPrestec.afegirPrestec(prestec);
-		
-		// if (bbddSoci.potDemanarPrestec(soci, exemplar)
-		//if (sociObj.potDemanarPrestec(exemplarObj)) {
-		/*this.sociObj.getEstatObj().demanarPrestec(sociObj, exemplarObj);
-		PrestecPK prestecPK = new PrestecPK();
-		prestecPK.setDataPrestec(new Date());
-		prestecPK.setSoci(soci);
-
-		prestec = new Prestec();
-		prestec.setId(prestecPK);
-		prestec.setExemplar(exemplarObj);
-		prestec.setSoci(sociObj);
-			
-		Calendar c = Calendar.getInstance(); 
-		c.setTime(prestec.getId().getDataPrestec()); 
-		c.add(Calendar.DATE, 5);
-		prestec.setDataMaxRetorn(c.getTime());
-			
-		this.bbddPrestec.afegirPrestec(prestec);
-		bbddSoci.prestecAfegit(prestec);
-		//}*/
+		System.out.println(4);
+		for(int i=0;i<sociObj.getPrestecs().size();i++){
+			if(sociObj.getPrestecs().get(i).getExemplar().equals(exemplarObj)){
+				this.prestec=sociObj.getPrestecs().get(i);
+			}
+		}
+		this.bbddPrestec.afegirPrestec(this.prestec);
+		System.out.println(5);
 		return prestec.getDataMaxRetorn();
 	}
 

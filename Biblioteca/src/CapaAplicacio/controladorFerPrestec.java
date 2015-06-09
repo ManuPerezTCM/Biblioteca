@@ -60,7 +60,6 @@ public class controladorFerPrestec {
 		this.bbddExemplar.disponible(exemplarObj);
 		sociObj.afegirPrestec(exemplarObj);
 		this.bbddSoci.actualitzarSoci(sociObj);
-		System.out.println(4);
 		for(int i=0;i<sociObj.getPrestecs().size();i++){
 			if(sociObj.getPrestecs().get(i).getExemplar().equals(exemplarObj)){
 				this.prestec=sociObj.getPrestecs().get(i);

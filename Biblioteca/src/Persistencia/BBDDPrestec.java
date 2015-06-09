@@ -2,6 +2,7 @@ package Persistencia;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -95,30 +96,19 @@ public class BBDDPrestec {
 		}
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
 				.createEntityManager();
-		Query query = em
-				.createNativeQuery("UPDATE prestec set DATA_MAX_RETORN=DATA_MAX_RETORN+? where soci=? and exemplar=?");
-		query.setParameter(1, dies);
-		query.setParameter(2, p.getSoci().getDni());
-		query.setParameter(3, p.getExemplar().getRegistre());
+		
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(p.getDataMaxRetorn()); 
+		c.add(Calendar.DATE, dies);
+		p.setDataMaxRetorn(c.getTime());
+		em.getTransaction().begin();
+		em.merge(p);
+		em.getTransaction().commit();
 
 	}
 
 	public Prestec getPrestecPerEndarrerir(String obra, String dniSoci)
 			throws Exception {
-		/*if (obra == null) {
-			throw new Exception("Has de seleccionar una obra");
-		}
-		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
-				.createEntityManager();
-		Prestec retorn = new Prestec();
-		Query queryTornarPrestec = em
-				.createNativeQuery("SELECT * FROM prestec join exemplar on prestec.exemplar="
-						+ "exemplar.REGISTRE join obra on exemplar.obra=obra.isbn WHERE prestec.soci=? AND obra.titol=?");
-		queryTornarPrestec.setParameter(1, objSoci.getDni());
-		queryTornarPrestec.setParameter(2, obra);
-		retorn = (Prestec) queryTornarPrestec.getResultList().get(0);
-		em.close();
-		return retorn;*/
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
 				.createEntityManager();
 		Prestec retorn = new Prestec();

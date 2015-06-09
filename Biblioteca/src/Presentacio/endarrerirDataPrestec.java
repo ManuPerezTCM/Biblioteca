@@ -107,6 +107,8 @@ public class endarrerirDataPrestec extends JFrame {
 					int dies=Integer.parseInt(textFieldIntrodueixDies.getText());
 					try {
 						cont.endarrerirPrestec(obra, dies);
+						JOptionPane.showMessageDialog(new JFrame(), "Data endarrerida satisfactòriament", "OK",
+								JOptionPane.INFORMATION_MESSAGE);
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error",
 								JOptionPane.ERROR_MESSAGE);

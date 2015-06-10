@@ -13,10 +13,6 @@ import Persistencia.BBDDExemplar;
 import Persistencia.BBDDPrestec;
 import Persistencia.BBDDSoci;
 
-/*
- el numero de dies es canvia quan es dona OK a fer prestec desde la pantalla
- el prestec que dona el soci es queda guardat com a atribut
- */
 public class controladorFerPrestec {
 
 	private Soci sociObj;
@@ -69,13 +65,6 @@ public class controladorFerPrestec {
 		System.out.println(5);
 		return prestec.getDataMaxRetorn();
 	}
-
-	/*private boolean prestecPermes() throws Exception { //aquesta funcio d'aqui la té que fer el patro estats
-		return sociObj.potDemanarPrestec(this.exemplarObj)
-				&& !bbddSoci.sociTeObra(exemplarObj, sociObj)
-				&& exemplarObj.disponible()
-				&& bbddExemplar.disponible(exemplarObj);
-	}*/
 	
 	private void comprobarDNI(String soci) throws Exception{
 		String lletra = "TRWAGMYFPDXBNJZSQVHLCKE";
@@ -83,12 +72,12 @@ public class controladorFerPrestec {
 			for (int i = 0; i < 8; i++) {
 				if (Character.isDigit(soci.charAt(i)))
 					throw new Exception(
-							"DNI No vàlid. Introdueix 8 nombres i una lletra");
+							"DNI No vï¿½lid. Introdueix 8 nombres i una lletra");
 			}
 			Integer valor = new Integer(soci.substring(0, 8));
 			int aux = valor % 23;
 			if(soci.charAt(8)!=lletra.charAt(aux))
-				throw new Exception("DNI No Vàlid. No concorda la lletra amb el DNI");
+				throw new Exception("DNI No Vï¿½lid. No concorda la lletra amb el DNI");
 		}
 	}
 }

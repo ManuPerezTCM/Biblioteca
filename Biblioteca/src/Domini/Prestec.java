@@ -49,13 +49,6 @@ public class Prestec implements Serializable {
 	
 
 	public Prestec() throws Exception {
-//		dataMaxRetorn = new Date();
-//		Calendar calendar = GregorianCalendar.getInstance();
-//
-//		calendar.setTime(dataMaxRetorn);
-//		calendar.add(calendar.DAY_OF_MONTH, Biblioteca.getInstancia().getDiesDePrestec().intValue());
-//		dataMaxRetorn = calendar.getTime();
-		//QUI FA NEW PRESTEC HA DE FER UN METODE SET DATA RETORN I QUE POSI AQUEST CODI
 	}
 
 	public PrestecPK getId() {

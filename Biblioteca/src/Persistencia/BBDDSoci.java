@@ -30,34 +30,10 @@ public class BBDDSoci {
 		if(retorn==null){
 			throw new Exception("Soci no trobat");
 		}
-		if(retorn.getDataBaixa() != null){ // això ha de controlar que no és puguin declarar socis donats de baixa
+		if(retorn.getDataBaixa() != null){ // aixï¿½ ha de controlar que no ï¿½s puguin declarar socis donats de baixa
 			return null;
 		}
 		retorn.setEstatObj((estatAbs) Class.forName("Domini.EstatsSoci.estat"+retorn.getEstatString()).newInstance());
-		/*
-		if (retorn.getEstatString().equals("SensePrestec")) {
-			retorn.setEstatObj(new estatSensePrestec());
-		} else {
-			if (retorn.getEstatString().equals("AmbPrestec")) {
-				retorn.setEstatObj(new estatAmbPrestec());
-			} else {
-				retorn.setEstatObj(new estatMoros());
-			}
-		}*/
-		
-//		Query queryTornar = em
-//				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NULL");
-//		queryTornar.setParameter(1, soci);
-//		
-//		int perTornar = queryTornar.getResultList().size();
-//		
-//		Query queryPagar = em
-//				.createNativeQuery("SELECT * FROM prestec WHERE soci=? AND DATA_REAL_RETORN IS NOT NULL AND DATA_PAGAMENT IS NULL");
-//		queryPagar.setParameter(1, soci);
-//		int perPagar = queryPagar.getResultList().size();
-//		
-//		retorn.setPrestecsPerPagar(perPagar);
-//		retorn.setPrestecsPerTornar(perTornar);
 		retorn.setPrestecs(this.bbddPrestec.findPrestecsSoci(retorn.getDni()));
 		
 		em.close();

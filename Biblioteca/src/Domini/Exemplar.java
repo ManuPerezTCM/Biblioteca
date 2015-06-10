@@ -66,7 +66,7 @@ public class Exemplar implements Serializable {
 	public void setObra(Obra obra) {
 		this.obra = obra;
 	}
-	//disponible retorna un BOOLEAN indicant si el exemplar est� disponible.
+
 	public boolean disponible() {
 		return getDataBaixa()==null;
 	}

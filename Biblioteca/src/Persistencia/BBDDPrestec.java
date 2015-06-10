@@ -132,12 +132,6 @@ public class BBDDPrestec {
 						"SELECT * FROM prestec WHERE exemplar=? AND DATA_REAL_RETORN is NULL",
 						Prestec.class);
 		query.setParameter(1, exemplar.getRegistre());
-		
-//		Query query = em
-//			    .createNativeQuery(
-//			      "SELECT * FROM prestec WHERE exemplar='"+exemplar.getRegistre()+"' AND DATA_REAL_RETORN is NULL",
-//			      Prestec.class);
-		
 		Prestec p = (Prestec) query.getSingleResult();
 		em.close();
 		return p;
@@ -154,17 +148,7 @@ public class BBDDPrestec {
 	public void pagarPrestec(Prestec prestec) throws Exception {
 		EntityManager em = ConnexioJPA.getInstancia().getFactoria()
 				.createEntityManager();
-//		Query queryImport = em
-//				.createNativeQuery("UPDATE prestec set IMPORT_RETARD=0 where soci=? and exemplar=?");
-//		queryImport.setParameter(1, prestec.getSoci().getDni());
-//		queryImport.setParameter(2, prestec.getExemplar().getRegistre());
-//		Query queryData = em
-//				.createNativeQuery("UPDATE prestec set DATA_PAGAMENT=? where soci=? and exemplar=?");
-//		queryData.setParameter(1, new Date());
-//		queryData.setParameter(2, prestec.getSoci().getDni());
-//		queryData.setParameter(1, prestec.getExemplar().getRegistre());
 		prestec.setDataPagament(new Date());
-//		prestec.setImportRetard(BigDecimal.valueOf(0));
 		em.getTransaction().begin();
 		em.merge(prestec);
 		em.getTransaction().commit();

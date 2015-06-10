@@ -1,4 +1,3 @@
-//Simplement substituïr tot el codi de la classe
 package CapaAplicacio;
 
 import java.math.BigDecimal;
@@ -39,7 +38,7 @@ public class controladorRetornPrestec {
 	
 	public void retornDinsTermini(String retorn) throws NumberFormatException, Exception{
 		
-		if(retorn.equals("")){ throw new Exception("Per favor, introdueïxi un ISBN");}
+		if(retorn.equals("")){ throw new Exception("Per favor, introdueï¿½xi un ISBN");}
 		try{
 		exemplar = this.bbddExemplar.find(Long.parseLong(retorn));		
 		}catch(Exception e){

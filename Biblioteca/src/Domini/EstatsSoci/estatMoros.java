@@ -37,14 +37,18 @@ public class estatMoros extends estatAbs {
 		for(Prestec p: soci.getPrestecs()){
 			if (p.getExemplar().equals(exemplar)) {
 				soci.getPrestecs().remove(p);
-				return this;
+				if(soci.getPrestecs().size()>0)
+					return this;
+				else
+					break;
 			}
 		}
+		
 		if(contadorPrestecsPerPagar>1){
 			return new estatMoros();
 		}
 		else{
-			if(soci.getPrestecs().size()>1)
+			if(soci.getPrestecs().size()>0)
 				return new estatAmbPrestec();
 			else
 				return new estatSensePrestec();

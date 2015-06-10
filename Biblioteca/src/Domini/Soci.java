@@ -25,20 +25,6 @@ public class Soci implements Serializable {
 	@Transient
 	private estatAbs estatObj;
 	
-	
-	// S'ha de fer una UNICA list de objectes prestec
-//	/**
-//	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
-//	 */
-//	@Transient
-//	private int prestecsPerPagar;//aix� ha de ser un List
-//	
-//	/**
-//	 * Manu: atribut afegit per a la gestió de l'estat i control de quins préstecs té.
-//	 */
-//	@Transient
-//	private int prestecsPerTornar;//aix� ha de ser un List
-	
 	/**
 	 * Xavi: List dels prestecs actius del Soci (no retornats i pendents de pagar)
 	 */
@@ -131,28 +117,6 @@ public class Soci implements Serializable {
 		return this.estat;
 	}
 	
-	/*public boolean potDemanarPrestec (Exemplar exemplar) throws Exception{
-		estatObj.demanarPrestec(this, exemplar);
-		String estatSoci = estatObj.toString();
-		if(estatSoci.equals("AmbPrestec")){			
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * @Autor Manu
-	 * @ Mètode afegit per a la gestió d'estat
-	 */
-	/*public void demanarPrestec(Exemplar exemplar) throws Exception{
-		this.estatObj = estatObj.demanarPrestec(this, exemplar);
-		this.estat = estatObj.toString();
-	}
-	
-	/**
-	 * @Autor Manu
-	 * @ Mètode afegit per a la gestió d'estat
-	 */
 	public void tornarPrestec(Exemplar exemplar) throws Exception{		
 		if(this.estatObj == null){			
 			this.setEstatObj((estatAbs) Class.forName("Domini.EstatsSoci.estat"+this.estat).newInstance());
@@ -198,31 +162,4 @@ public class Soci implements Serializable {
 		}
 		
 	}
-		
-
-//	/**
-//	 * @Autor Manu
-//	 * @ Mètode afegit per a la gestió d'estat
-//	 */
-//	public int getPrestecsPerTornar(){
-//		return this.prestecsPerTornar;
-//	}
-//
-//	/**
-//	 * @Autor Manu
-//	 * @ Mètode afegit per a la gestió d'estat
-//	 */
-//	public int getPrestecsPerPagar(){
-//		return this.prestecsPerPagar;
-//	}
-//	
-//	public void setPrestecsPerPagar(int i){
-//		this.prestecsPerPagar = i;
-//	}
-//	
-//	public void setPrestecsPerTornar(int i){
-//		this.prestecsPerTornar = i;
-//	}
-
-
 }
